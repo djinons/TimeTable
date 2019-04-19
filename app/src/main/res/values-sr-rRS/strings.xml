@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Raspored časova</string>
+    <string name="action_settings">Podešavanja</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <string name="monday">PONEDELJAK</string>
+    <string name="tuesday">UTORAK</string>
+    <string name="wednesday">SREDA</string>
+    <string name="thursday">ČETVRTAK</string>
+    <string name="friday">PETAK</string>
+
+    <string name="edit_time_table">Uredi raspored</string>
+    <string name="tap_to_edit">Dodirni za uređivanje</string>
+    <string name="week_preview">Nedeljni pregled</string>
+    <string name="day_preview">Dnevni pregled</string>
+
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="school_schedule">Raspored\nčasova</string>
+    <string name="about">O aplikaciji</string>
+    <string name="about_text">1.2 \nA lightweight,\nopensource Schoole schedule app. Developed by Duško Đinović</string>
+    <string name="quit">Želite li da izađete iz aplikacije?</string>
+    <string name="cancel">Odustani</string>
+    <string name="title_activity_add_class_name">Dodaj naziv predmeta</string>
+    <string name="edit_Timetable">Uredi raspored</string>
+    <string name="ad_Classname">Dodaj predmet</string>
+    <string name="set_start_time">Podesi početak časa</string>
+    <string name="ad_newTimetable">Dodaj novi raspored</string>
+    <string name="help">Uputstvo</string>
+    <string name="help_text">Uputstvo</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="help_content"><![CDATA[<p>Dobrodošli u aplikaciju <b>Raspored Časova</b>.<\p><\p>Pri pokretanju aplikacije potrebno je uneti predmete,
+         klikom na <b>meni - dodaj predmete</b>.<\p><\p>Zatim pristupite popunjavanju rasporeda časova, klikom na <b>ikonicu raspored</b>.<\p><\p>U delu
+         <b>meni - dodaj početak časa</b> možete podesiti početak časa za prvu i drugu smenu,
+         koji će se potom pojavljivati na rasporedu pored broja časa.<\p><\p>Za dodavanje rasporeda za više učenika idite u <b>meni - dodaj novi raspored</b>.<\p><\p>
+         da bi izmenili ili obrisali raspored kliknite na <b>ikonicu olovka</b>.</p>
+                                ]]></string>
+    <string name="from">početak časa</string>
+    <string name="to">kraj časa</string>
+    <string name="tap_to_set">Podesi početak</string>
+    <string name="set_start_end_toolbar">Podesi početak časa</string>
+    <string name="for_am_subtitle">za prvu i drugu smenu</string>
+    <string name="adding_new_classname">Dodaj novi predmet</string>
+    <string name="enter_new_classname">Unesi ime predmeta</string>
+    <string name="_7">7</string>
+    <string name="pm">posle podne</string>
+    <string name="am">pre podne</string>
+    <string name="enter_name">Ime učenika</string>
+    <string name="edit_or_delete_schedule">Uređivanje rasporeda</string>
+    <string name="add_new_schedule">Dodaj novi raspored</string>
+    <string name="edit_title">Uredi raspored</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="data_inserted">Podaci sačuvani</string>
+    <string name="data_not_inserted">Podaci nisu sačuvani</string>
+    <string name="please_enter_name">Molim unesite ime</string>
+    <string name="please_enter_classname">Unesite ime predmeta</string>
+
+
+
+</resources>

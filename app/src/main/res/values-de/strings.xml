@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Student Stundenplan</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_title">Zeitplan bearbeiten</string>
+    <string name="monday">MONTAG</string>
+    <string name="tuesday">DIENSTAG</string>
+    <string name="wednesday">MITTWOCH</string>
+    <string name="thursday">DONNERSTAG</string>
+    <string name="friday">FREITAG</string>
+
+    <string name="edit_time_table">Zeitplan bearbeiten</string>
+    <string name="tap_to_edit">Zum Bearbeiten tippen</string>
+    <string name="week_preview">Wochenvorschau</string>
+    <string name="day_preview">Tagesvorschau</string>
+
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="pm">PM</string>
+    <string name="am">AM</string>
+
+    <string name="school_schedule">Student\nStundenplan</string>
+    <string name="about">Über</string>
+    <string name="about_text">1.2 \nEin Leichtgewicht,\nopen Source Schulzeitplan App. Entwickelt von Duško Đinović</string>
+    <string name="quit">Möchtest du aufhören?</string>
+    <string name="cancel">Absetzen</string>
+    <string name="title_activity_add_class_name">AddClassNameActivity</string>
+    <string name="edit_Timetable">Zeitplan bearbeiten</string>
+    <string name="ad_Classname">Klassenname hinzufügen</string>
+    <string name="set_start_time">Startzeit der Klasse festlegen</string>
+    <string name="ad_newTimetable">Neuen Zeitplan hinzufügen</string>
+    <string name="help">Beistand</string>
+
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="help_text">Beistand</string>
+    <string name="help_content"><![CDATA[<p>Willkommen zu <b>Student Stunden<\p>plan</b> app.<\p><\p>Um die Anwendung zu starten, müssen Sie Klassennamen eingeben, indem Sie auf klicken
+        <b>Menü - Klassenname hinzufügen</b>.</p></p>Dann greifen Sie auf den Zeitplan zu, indem Sie auf die Schaltfläche klicken <b>Stiftsymbol</b>.<\p><\p>Im Bereich <b>Menü - Startzeit der Klasse festlegen</b>,
+        Sie können die Startzeit für die erste und zweite Schicht festlegen, die dann im Hochformat angezeigt wird.<\p><\p>
+        Um einen Zeitplan für mehrere Kursteilnehmer hinzuzufügen, gehen Sie zu <b> Menü - Neuen Zeitplan hinzufügen </b>.<\p><\p>
+        Um einen Zeitplan zu bearbeiten oder zu löschen, klicken Sie auf <b>Stiftsymbol</b></p>
+                                ]]></string>
+    <string name="from">von</string>
+    <string name="to">bis</string>
+    <string name="tap_to_set">Zeit einzustellen</string>
+    <string name="set_start_end_toolbar">Startzeit der Klasse einstellen</string>
+    <string name="for_am_subtitle">für am und pm</string>
+    <string name="adding_new_classname">Geben Sie Klassenname ein</string>
+    <string name="enter_new_classname">Geben Sie Klassenname ein</string>
+    <string name="enter_name">Geben Sie den Schülernamen ein</string>
+    <string name="edit_or_delete_schedule">Bearbeiten oder löschen Sie Zeitplan</string>
+    <string name="add_new_schedule">Neuen Zeitplan hinzufügen</string>
+    <string name="data_inserted">Daten eingefügt</string>
+    <string name="data_not_inserted">Daten nicht eingefügt</string>
+    <string name="please_enter_name">Bitte geben Sie den Namen ein</string>
+    <string name="please_enter_classname">Bitte geben Sie den Klassennamen ein</string>
+
+</resources>

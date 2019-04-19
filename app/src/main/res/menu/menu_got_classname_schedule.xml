@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MainActivity">
+    <item
+        android:id="@+id/action_addSchedule"
+        android:icon="@drawable/ic_action_add_schedule"
+        android:title="@string/add_new_schedule" />
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_white"
+        android:title="@string/edit_Timetable"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_addClassname"
+        android:icon="@drawable/ic_plus_circle"
+        android:title="@string/ad_Classname"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_class_start_end"
+        android:title="@string/set_start_time" />
+    <item
+        android:id="@+id/help"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/help"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/about" />
+
+</menu>

@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">School schedule</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_title">Edit Schedule</string>
+    <string name="monday">MONDAY</string>
+    <string name="tuesday">TUESDAY</string>
+    <string name="wednesday">WEDNESDAY</string>
+    <string name="thursday">THURSDAY</string>
+    <string name="friday">FRIDAY</string>
+
+    <string name="edit_time_table">Edit Schedule</string>
+    <string name="tap_to_edit">Tap to edit</string>
+    <string name="week_preview">Week Preview</string>
+    <string name="day_preview">Day Preview</string>
+
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="pm">PM</string>
+    <string name="am">AM</string>
+
+    <string name="school_schedule">School\nschedule</string>
+    <string name="about">About</string>
+    <string name="about_text">1.2 \nA lightweight,\nopensource School schedule app. Developed by Duško Đinović</string>
+    <string name="quit">Do You Want To Quit?</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_add_class_name">AddClassNameActivity</string>
+    <string name="edit_Timetable">Edit Timetable</string>
+    <string name="ad_Classname">Add Classname</string>
+    <string name="set_start_time">Set start time of class</string>
+    <string name="ad_newTimetable">Add new Schedule</string>
+    <string name="help">Help</string>
+
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="help_text">Help</string>
+    <string name="help_content"><![CDATA[<p>Welcome to <b>School Schedule</b> app.<\p><\p>To start the application, you need to enter classnames by clicking on the
+        <b>menu - add Classname</b>.</p></p>Then access the schedule by clicking on the <b>pen icon</b>.<\p><\p>In the section <b>menu - add the start of Class</b>,
+        you can set the class start time for the first and second shift,which will then appear on schedule in portrait mode.<\p><\p>
+        To add a multiple student schedule, go to the <b> menu - add a new schedule </b>.<\p><\p>
+        To edit or delete a schedule, click the <b>Pen icon</b></p>
+                                ]]></string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="tap_to_set">Tap to set time</string>
+    <string name="set_start_end_toolbar">Set start time of Class</string>
+    <string name="for_am_subtitle">for am and pm</string>
+    <string name="adding_new_classname">Add new Classname</string>
+    <string name="enter_new_classname">Enter new Classname</string>
+    <string name="enter_name">Enter student name</string>
+    <string name="edit_or_delete_schedule">Edit or delete Schedule</string>
+    <string name="add_new_schedule">Add new Schedule</string>
+    <string name="data_inserted">Data inserted</string>
+    <string name="data_not_inserted">Data not inserted</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_classname">Please enter classname</string>
+
+</resources>

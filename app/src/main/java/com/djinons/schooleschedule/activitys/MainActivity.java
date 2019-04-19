@@ -1,6 +1,5 @@
 package com.djinons.schooleschedule.activitys;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,6 +30,7 @@ import com.djinons.schooleschedule.fragments.ThursdayFragment;
 import com.djinons.schooleschedule.fragments.TuesdayFragment;
 import com.djinons.schooleschedule.fragments.WednesdayFragment;
 import com.djinons.schooleschedule.models.SchedulenameModel;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,9 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.djinons.schooleschedule.R.layout.fragment_monday;
 import static java.lang.System.out;
-import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -85,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (vPager != null) {
 
             vPager.setAdapter(dayViewPagerAdapter);
+            SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
+            viewPagerTab.setViewPager(vPager);
 
         } else if (vPager == null) {
 
@@ -237,6 +237,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         myDb = new DbHelper(this);
         myDb.getWritableDatabase();
+
+
 
         Cursor gotclassname = myDb.getAllDataClass();
         Cursor gotschedule = myDb.getAllScheduleName();

@@ -3,7 +3,9 @@ package com.djinons.schooleschedule.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -31,6 +33,21 @@ import com.djinons.schooleschedule.fragments.ThursdayFragment;
 import com.djinons.schooleschedule.fragments.TuesdayFragment;
 import com.djinons.schooleschedule.fragments.WednesdayFragment;
 import com.djinons.schooleschedule.models.SchedulenameModel;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.BadgeStyle;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondarySwitchDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ViewPager vPager;
     DayViewPagerAdapter dayViewPagerAdapter;
     DbHelper myDb;
+    private AccountHeader headerDrawer = null;
+    public static Drawer drawer = null;
 
     ArrayAdapter<String> adapter;
 
@@ -263,7 +282,247 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         toolbarspinner = findViewById(R.id.spinner_nav_sub);
 
 
+        IProfile profile;
+        profile = new ProfileDrawerItem().withName("Loggen user")//TODO username add
+                .withIcon(R.drawable.gravatar);
 
+     //   if (!Const.theme) {
+
+            headerDrawer = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withCompactStyle(true)
+                    .withHeaderBackground(R.drawable.header)
+                    .withCompactStyle(true)
+                    .withDividerBelowHeader(true)
+                    .addProfiles(
+                            profile,
+                            new ProfileSettingDrawerItem().withName("Manage Account")
+                                    .withIcon(R.drawable.ic_manage_account_black).withIdentifier(200)
+                                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                                        @Override
+                                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                                            if (drawerItem != null) {
+                                                Fragment fragment;
+//                                                switch ((int) drawerItem.getIdentifier()) {
+//                                                    case 200:
+//                                                        clearBackStack();
+//                                                        fragment = ManageAccountFragment.newInstance(getString(R.string.title_fragment_manage_account));
+//                                                        FRAGMENT_TAG = getString(R.string.fragment_manage_account_tag);
+//                                                        switchFragmentNoBackStackByTag
+//                                                                (R.id.fragment_container, fragment, FRAGMENT_TAG);
+//                                                        new android.os.Handler().postDelayed(
+//                                                                new Runnable() {
+//                                                                    public void run() {
+//                                                                        drawer.deselect();
+//                                                                    }
+//                                                                }
+//                                                                , 300);
+//                                                        break;
+//                                                    default:
+//                                                        break;
+//                                                }
+                                            }
+                                            toolbar.setTitle("Manage Account");
+                                            return false;
+                                        }
+                                    })
+
+                    )
+                    .withSavedInstance(savedInstanceState)
+                    .build();
+
+            drawer = new DrawerBuilder()
+                    .withActivity(this)
+                    .withToolbar(toolbar)
+                    .withTranslucentStatusBar(false)
+                    .withActionBarDrawerToggleAnimated(true)
+                    .withAccountHeader(headerDrawer)
+                    .addDrawerItems(
+                            new PrimaryDrawerItem().withName(R.string.drawer_item_home)
+                                    .withIcon(R.drawable.ic_home_black)
+                                    .withIdentifier(1),
+//                            new PrimaryDrawerItem()
+//                                    .withName(R.string.drawer_item_notifications)
+//                                    .withIcon(R.drawable.ic_notifications_black)
+//                                    .withIdentifier(3)
+//                                    .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE)
+//                                            .withColorRes(R.color.colorAccent)),
+//                            new PrimaryDrawerItem()
+//                                    .withName("New message")
+//                                    .withIcon(R.drawable.ic_message_black)
+//                                    .withIdentifier(4)
+//                                    .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE)
+//                                            .withColorRes(R.color.colorAccent)),
+
+                            new PrimaryDrawerItem()
+                                    .withName("Add classname")
+                                    .withIcon(R.drawable.ic_employees_black)
+                                    .withIdentifier(10),
+                            new PrimaryDrawerItem()
+                                    .withName("Add student")
+                                    .withIcon(R.drawable.ic_absences_black)
+                                    .withIdentifier(11),
+
+                            new PrimaryDrawerItem()
+                                    .withName("Edit schedule")
+                                    .withIcon(R.drawable.ic_realizations_black)
+                                    .withIdentifier(15),
+
+                            new SectionDrawerItem()
+                                    .withName("Accessories")
+                                    .withIdentifier(5),
+                            new ExpandableDrawerItem().withName("Settings")
+                                    .withIcon(R.drawable.ic_settings_black)
+                                    .withIdentifier(6)
+                                    .withSelectable(false)
+                                    .withSubItems(
+                                            new SecondarySwitchDrawerItem()
+                                                    .withName("Theme")
+                                                    .withIcon(R.drawable.ic_theme_black)
+                                                    .withIdentifier(100)
+                                                    .withSelectable(false)
+                                                  //  .withChecked(sharedPreferences.getBoolean(Const.DEFAULT_THEME, false))
+                                              //      .withOnCheckedChangeListener(onCheckedChangeListener)//TODO comma separator
+//                                            new SecondaryDrawerItem()
+//                                                    .withName(R.string.drawer_item_notification_sleep_timer)
+//                                                    .withIcon(R.drawable.ic_notifications_frequency_black)
+//                                                    .withIdentifier(102)
+//                                                    .withSelectable(false)
+                                    )
+                    )
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                            if (drawerItem != null) {
+                                Fragment fragment;
+//                                switch ((int) drawerItem.getIdentifier()) {
+//                                    case 1:
+//                                        clearBackStack();
+//                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
+//                                        break;
+//                                    case 3:
+//                                        clearBackStack();
+//                                        Const.notifications = NotificationBackgroundService.getNotifications();
+//                                        notificationsCount = Const.notifications.size();
+//                                        fragment = NotificationsFragment.newInstance(getString(R.string.title_fragment_notifications), notificationsCount);
+//                                        FRAGMENT_TAG = getString(R.string.fragment_notifications_tag);
+//                                        break;
+//                                    case 4:
+//                                        clearBackStack();
+//                                        fragment = SendMessageFragment.newInstance("New message");
+//                                        FRAGMENT_TAG = getString(R.string.fragment_notifications_tag);
+//                                        break;
+//                                    case 20:
+//                                        clearBackStack();
+//                                        fragment = AboutUsFragment.newInstance(getString(R.string.title_fragment_about_us));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_about_us_tag);
+//                                        break;
+//                                    case 21:
+//                                        clearBackStack();
+//                                        showAlertLogOut();
+//                                        drawer.setSelection(1, true);
+//                                        checkLogOut = true;
+//                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
+//                                        break;
+//                                    case 10:
+//                                        clearBackStack();
+//                                        fragment = EmployeeFragment.newInstance(getString(R.string.title_fragment_employees));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_employees_tag);
+//                                        break;
+//                                    case 11:
+//                                        clearBackStack();
+//                                        Const.teamLeaderCheckingEmployees = false;
+//                                        fragment = AbsencesTabFragment.newInstance(getString(R.string.title_fragment_absences));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_absences_tag);
+//                                        break;
+//                                    case 12:
+//                                        // clearBackStack();
+//                                        fragment = NewAbsenceFragment.newInstance(getString(R.string.title_fragment_new_absence));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_new_absences_tag);
+//                                        break;
+//                                    case 15:
+//                                        clearBackStack();
+//                                        fragment = RealizationsFragment.newInstance(getString(R.string.title_fragment_realizations));
+//                                        FRAGMENT_TAG = getString(R.string.fragment_realizations_tag);
+//                                        break;
+//                                    case 102:
+//                                        toolbarTitle = toolbar.getTitle().toString();
+//                                        notificationFrequencyDialogOpen = true;
+//                                        ShowNotificationSleepTimer();
+//
+//                                    default:
+//                                        clearBackStack();
+//                                        fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+//                                        break;
+//                                }
+//                                switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+
+                            }
+                            if (drawerItem instanceof Nameable) {
+//                                if (!(((Nameable) drawerItem).getName().getText(MainActivity.this))
+//                                        .equalsIgnoreCase(getString(R.string.drawer_item_settings)) || (((Nameable) drawerItem).getName()
+//                                        .getText(MainActivity.this)).equalsIgnoreCase(getString(R.string.drawer_item_theme_switch))) {
+//                                    if (!checkLogOut) {
+//                                        toolbar.setTitle((((Nameable) drawerItem).getName().getText(MainActivity.this)));
+//                                    } else {
+//                                        toolbar.setTitle(getString(R.string.app_name));
+//                                        checkLogOut = false;
+//                                    }
+//                                    if (notificationFrequencyDialogOpen) {
+//                                        toolbar.setTitle(toolbarTitle);
+//                                        notificationFrequencyDialogOpen = false;
+//                                    }
+//                                }
+                            }
+                            return false;
+                        }
+                    })
+                    .withOnDrawerListener(new Drawer.OnDrawerListener() {
+                                              @Override
+                                              public void onDrawerOpened(View drawerView) {
+                                                  new Handler().postDelayed(
+                                                          new Runnable() {
+                                                              public void run() {
+                                                                  long item = drawer.getCurrentSelection();
+                                                                  drawer.deselect();
+                                                                  drawer.setSelection(item, false);
+                                                              }
+                                                          }, 200);
+                                              }
+
+                                              @Override
+                                              public void onDrawerClosed(View drawerView) {
+                                                  new Handler().postDelayed(
+                                                          new Runnable() {
+                                                              public void run() {
+                                                    //              updateNotificationBadge(false);
+                                                              }
+                                                          }, 500);
+                                              }
+
+                                              @Override
+                                              public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                                              }
+                                          }
+                    )
+                    .addStickyDrawerItems(
+                            new SecondaryDrawerItem()
+                                    .withName("About")
+                                    .withIcon(R.drawable.ic_info_black)
+                                    .withIdentifier(20)
+                    ).withSavedInstance(savedInstanceState)
+                    .addStickyDrawerItems(
+                            new SecondaryDrawerItem()
+                                    .withName("Log out")
+                                    .withIcon(R.drawable.ic_log_out_black)
+                                    .withIdentifier(21)
+
+                    ).withSavedInstance(savedInstanceState)
+                    .build();
+    //    }
 
 
 

@@ -54,11 +54,11 @@ import java.util.Set;
 
 import static java.lang.System.out;
 
-
+@SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DbHelper myDb;
-    @SuppressLint("StaticFieldLeak")
+
     public static Drawer drawer = null;
 
 

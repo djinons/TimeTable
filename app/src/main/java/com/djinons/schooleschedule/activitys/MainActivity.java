@@ -1,9 +1,8 @@
 package com.djinons.schooleschedule.activitys;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -37,7 +35,6 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -47,7 +44,6 @@ import com.mikepenz.materialdrawer.model.SecondarySwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,20 +52,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.djinons.schooleschedule.R.layout.fragment_monday;
 import static java.lang.System.out;
-import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    ViewPager vPager;
-    DayViewPagerAdapter dayViewPagerAdapter;
-    DbHelper myDb;
-    private AccountHeader headerDrawer = null;
+    private DbHelper myDb;
+    @SuppressLint("StaticFieldLeak")
     public static Drawer drawer = null;
-
-    ArrayAdapter<String> adapter;
 
 
     Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
@@ -98,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         studentname = toolbarspinner.getSelectedItem().toString();
 
-        vPager = findViewById(R.id.vPager);
-        dayViewPagerAdapter = new DayViewPagerAdapter(getSupportFragmentManager());
+        ViewPager vPager = findViewById(R.id.vPager);
+        DayViewPagerAdapter dayViewPagerAdapter = new DayViewPagerAdapter(getSupportFragmentManager());
 
         if (vPager != null) {
 
@@ -249,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -265,17 +254,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
             MainActivity.this.startActivity(addClassIntent);
 
-        }else if (gotschedule.getCount() < 1) {
+        } else if (gotschedule.getCount() < 1) {
             Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
             MainActivity.this.startActivity(addScheduleIntent);
         }
 
 
-
-
         setContentView(R.layout.activity_main);
 
-       // invalidateOptionsMenu();
+        // invalidateOptionsMenu();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -286,23 +273,41 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         profile = new ProfileDrawerItem().withName("Loggen user")//TODO username add
                 .withIcon(R.drawable.gravatar);
 
-     //   if (!Const.theme) {
+        //   if (!Const.theme) {
 
-            headerDrawer = new AccountHeaderBuilder()
-                    .withActivity(this)
-                    .withCompactStyle(true)
-                    .withHeaderBackground(R.drawable.header)
-                    .withCompactStyle(true)
-                    .withDividerBelowHeader(true)
-                    .addProfiles(
-                            profile,
-                            new ProfileSettingDrawerItem().withName("Manage Account")
-                                    .withIcon(R.drawable.ic_manage_account_black).withIdentifier(200)
-                                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                                        @Override
-                                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                            if (drawerItem != null) {
-                                                Fragment fragment;
+        //                                                switch ((int) drawerItem.getIdentifier()) {
+        //                                                    case 200:
+        //                                                        clearBackStack();
+        //                                                        fragment = ManageAccountFragment.newInstance(getString(R.string.title_fragment_manage_account));
+        //                                                        FRAGMENT_TAG = getString(R.string.fragment_manage_account_tag);
+        //                                                        switchFragmentNoBackStackByTag
+        //                                                                (R.id.fragment_container, fragment, FRAGMENT_TAG);
+        //                                                        new android.os.Handler().postDelayed(
+        //                                                                new Runnable() {
+        //                                                                    public void run() {
+        //                                                                        drawer.deselect();
+        //                                                                    }
+        //                                                                }
+        //                                                                , 300);
+        //                                                        break;
+        //                                                    default:
+        //                                                        break;
+        //                                                }
+        AccountHeader headerDrawer = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withCompactStyle(true)
+                .withHeaderBackground(R.drawable.header)
+                .withCompactStyle(true)
+                .withDividerBelowHeader(true)
+                .addProfiles(
+                        profile,
+                        new ProfileSettingDrawerItem().withName("Manage Account")
+                                .withIcon(R.drawable.ic_manage_account_black).withIdentifier(200)
+                                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                                    @Override
+                                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+//                                        if (drawerItem != null) {
+//                                            Fragment fragment;
 //                                                switch ((int) drawerItem.getIdentifier()) {
 //                                                    case 200:
 //                                                        clearBackStack();
@@ -321,26 +326,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                                    default:
 //                                                        break;
 //                                                }
-                                            }
-                                            toolbar.setTitle("Manage Account");
-                                            return false;
-                                        }
-                                    })
+//                                        }
+                                        toolbar.setTitle("Manage Account");
+                                        return false;
+                                    }
+                                })
 
-                    )
-                    .withSavedInstance(savedInstanceState)
-                    .build();
+                )
+                .withSavedInstance(savedInstanceState)
+                .build();
 
-            drawer = new DrawerBuilder()
-                    .withActivity(this)
-                    .withToolbar(toolbar)
-                    .withTranslucentStatusBar(false)
-                    .withActionBarDrawerToggleAnimated(true)
-                    .withAccountHeader(headerDrawer)
-                    .addDrawerItems(
-                            new PrimaryDrawerItem().withName(R.string.drawer_item_home)
-                                    .withIcon(R.drawable.ic_home_black)
-                                    .withIdentifier(1),
+        drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withTranslucentStatusBar(false)
+                .withActionBarDrawerToggleAnimated(true)
+                .withAccountHeader(headerDrawer)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_home)
+                                .withIcon(R.drawable.ic_home_black)
+                                .withIdentifier(1),
 //                            new PrimaryDrawerItem()
 //                                    .withName(R.string.drawer_item_notifications)
 //                                    .withIcon(R.drawable.ic_notifications_black)
@@ -354,47 +359,47 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                    .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE)
 //                                            .withColorRes(R.color.colorAccent)),
 
-                            new PrimaryDrawerItem()
-                                    .withName("Add classname")
-                                    .withIcon(R.drawable.ic_employees_black)
-                                    .withIdentifier(10),
-                            new PrimaryDrawerItem()
-                                    .withName("Add student")
-                                    .withIcon(R.drawable.ic_absences_black)
-                                    .withIdentifier(11),
+                        new PrimaryDrawerItem()
+                                .withName("Add classname")
+                                .withIcon(R.drawable.ic_employees_black)
+                                .withIdentifier(10),
+                        new PrimaryDrawerItem()
+                                .withName("Add student")
+                                .withIcon(R.drawable.ic_absences_black)
+                                .withIdentifier(11),
 
-                            new PrimaryDrawerItem()
-                                    .withName("Edit schedule")
-                                    .withIcon(R.drawable.ic_realizations_black)
-                                    .withIdentifier(15),
+                        new PrimaryDrawerItem()
+                                .withName("Edit schedule")
+                                .withIcon(R.drawable.ic_realizations_black)
+                                .withIdentifier(15),
 
-                            new SectionDrawerItem()
-                                    .withName("Accessories")
-                                    .withIdentifier(5),
-                            new ExpandableDrawerItem().withName("Settings")
-                                    .withIcon(R.drawable.ic_settings_black)
-                                    .withIdentifier(6)
-                                    .withSelectable(false)
-                                    .withSubItems(
-                                            new SecondarySwitchDrawerItem()
-                                                    .withName("Theme")
-                                                    .withIcon(R.drawable.ic_theme_black)
-                                                    .withIdentifier(100)
-                                                    .withSelectable(false)
-                                                  //  .withChecked(sharedPreferences.getBoolean(Const.DEFAULT_THEME, false))
-                                              //      .withOnCheckedChangeListener(onCheckedChangeListener)//TODO comma separator
+                        new SectionDrawerItem()
+                                .withName("Accessories")
+                                .withIdentifier(5),
+                        new ExpandableDrawerItem().withName("Settings")
+                                .withIcon(R.drawable.ic_settings_black)
+                                .withIdentifier(6)
+                                .withSelectable(false)
+                                .withSubItems(
+                                        new SecondarySwitchDrawerItem()
+                                                .withName("Theme")
+                                                .withIcon(R.drawable.ic_theme_black)
+                                                .withIdentifier(100)
+                                                .withSelectable(false)
+                                        //  .withChecked(sharedPreferences.getBoolean(Const.DEFAULT_THEME, false))
+                                        //      .withOnCheckedChangeListener(onCheckedChangeListener)//TODO comma separator
 //                                            new SecondaryDrawerItem()
 //                                                    .withName(R.string.drawer_item_notification_sleep_timer)
 //                                                    .withIcon(R.drawable.ic_notifications_frequency_black)
 //                                                    .withIdentifier(102)
 //                                                    .withSelectable(false)
-                                    )
-                    )
-                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                        @Override
-                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                            if (drawerItem != null) {
-                                Fragment fragment;
+                                )
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                            Fragment fragment;
 //                                switch ((int) drawerItem.getIdentifier()) {
 //                                    case 1:
 //                                        clearBackStack();
@@ -459,8 +464,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                }
 //                                switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
 
-                            }
-                            if (drawerItem instanceof Nameable) {
+                        }
+//                            if (drawerItem instanceof Nameable) {
 //                                if (!(((Nameable) drawerItem).getName().getText(MainActivity.this))
 //                                        .equalsIgnoreCase(getString(R.string.drawer_item_settings)) || (((Nameable) drawerItem).getName()
 //                                        .getText(MainActivity.this)).equalsIgnoreCase(getString(R.string.drawer_item_theme_switch))) {
@@ -475,59 +480,54 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                        notificationFrequencyDialogOpen = false;
 //                                    }
 //                                }
-                            }
-                            return false;
-                        }
-                    })
-                    .withOnDrawerListener(new Drawer.OnDrawerListener() {
-                                              @Override
-                                              public void onDrawerOpened(View drawerView) {
-                                                  new Handler().postDelayed(
-                                                          new Runnable() {
-                                                              public void run() {
-                                                                  long item = drawer.getCurrentSelection();
-                                                                  drawer.deselect();
-                                                                  drawer.setSelection(item, false);
-                                                              }
-                                                          }, 200);
-                                              }
-
-                                              @Override
-                                              public void onDrawerClosed(View drawerView) {
-                                                  new Handler().postDelayed(
-                                                          new Runnable() {
-                                                              public void run() {
-                                                    //              updateNotificationBadge(false);
-                                                              }
-                                                          }, 500);
-                                              }
-
-                                              @Override
-                                              public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                                              }
+//                            }
+                        return false;
+                    }
+                })
+                .withOnDrawerListener(new Drawer.OnDrawerListener() {
+                                          @Override
+                                          public void onDrawerOpened(View drawerView) {
+                                              new Handler().postDelayed(
+                                                      new Runnable() {
+                                                          public void run() {
+                                                              long item = drawer.getCurrentSelection();
+                                                              drawer.deselect();
+                                                              drawer.setSelection(item, false);
+                                                          }
+                                                      }, 200);
                                           }
-                    )
-                    .addStickyDrawerItems(
-                            new SecondaryDrawerItem()
-                                    .withName("About")
-                                    .withIcon(R.drawable.ic_info_black)
-                                    .withIdentifier(20)
-                    ).withSavedInstance(savedInstanceState)
-                    .addStickyDrawerItems(
-                            new SecondaryDrawerItem()
-                                    .withName("Log out")
-                                    .withIcon(R.drawable.ic_log_out_black)
-                                    .withIdentifier(21)
 
-                    ).withSavedInstance(savedInstanceState)
-                    .build();
-    //    }
+                                          @Override
+                                          public void onDrawerClosed(View drawerView) {
+                                              new Handler().postDelayed(
+                                                      new Runnable() {
+                                                          public void run() {
+                                                              //              updateNotificationBadge(false);
+                                                          }
+                                                      }, 500);
+                                          }
 
+                                          @Override
+                                          public void onDrawerSlide(View drawerView, float slideOffset) {
 
+                                          }
+                                      }
+                )
+                .addStickyDrawerItems(
+                        new SecondaryDrawerItem()
+                                .withName("About")
+                                .withIcon(R.drawable.ic_info_black)
+                                .withIdentifier(20)
+                ).withSavedInstance(savedInstanceState)
+                .addStickyDrawerItems(
+                        new SecondaryDrawerItem()
+                                .withName("Log out")
+                                .withIcon(R.drawable.ic_log_out_black)
+                                .withIdentifier(21)
 
-
-
+                ).withSavedInstance(savedInstanceState)
+                .build();
+        //    }
 
 
         int id = 0;
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             out.println(schedulenameModel.getSchedulename());
         }
 
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
         Cursor schedulename1 = myDb.getAllScheduleName();
 
         if (schedulename1.moveToFirst()) {
@@ -556,7 +556,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 //Convert set into list
-        List<String> list = new ArrayList<String>(set);
+        List<String> list = new ArrayList<>(set);
 //Sort Data Alphabetical order
         Collections.sort(list, new Comparator<String>() {
             @Override
@@ -564,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 return lhs.compareTo(rhs);
             }
         });
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         toolbarspinner.setAdapter(adapter);
@@ -591,40 +591,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             getMenuInflater().inflate(R.menu.menu_inicial, menu);
 
 
-        }else if (gotschedule.getCount() < 1){
+        } else if (gotschedule.getCount() < 1) {
             getMenuInflater().inflate(R.menu.menu_got_classname, menu);
 
-        }else{
+        } else {
             getMenuInflater().inflate(R.menu.menu_got_classname_schedule, menu);
         }
-            return true;
+        return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /**  if (id == R.id.action_refresh) {
-         if (isNetworkAvailable()) {
-         getTodayWeather();
-         getLongTermWeather();
-         } else {
-         Snackbar.make(appView, getString(R.string.msg_connection_not_available), Snackbar.LENGTH_LONG).show();
-         }
-         return true;
-         }
-
-         if (id == R.id.action_search) {
-         searchCities();
-         return true;
-         }*/
-         if (id == R.id.action_addClassname) {
-             Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
-             MainActivity.this.startActivity(addClassIntent);
-         }
-         if (id == R.id.action_edit) {
+        if (id == R.id.action_addClassname) {
+            Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
+            MainActivity.this.startActivity(addClassIntent);
+        }
+        if (id == R.id.action_edit) {
             Intent editIntent = new Intent(MainActivity.this, EditDeleteActivity.class);
             MainActivity.this.startActivity(editIntent);
-         }
+        }
         if (id == R.id.action_class_start_end) {
             Intent startendIntent = new Intent(MainActivity.this, ClassStartEndActivity.class);
             MainActivity.this.startActivity(startendIntent);
@@ -638,12 +625,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             MainActivity.this.startActivity(addScheduleIntent);
         }
 
-         if (id == R.id.action_about) {
+        if (id == R.id.action_about) {
             aboutDialog();
             return true;
-         }
-         return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         onShowQuitDialog();
@@ -653,7 +641,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Info_dialog info_dialog = new Info_dialog();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.addToBackStack(null);
-        info_dialog.show(ft,"info_dialog");
+        info_dialog.show(ft, "info_dialog");
     }
 
     public void SaveTimeTable() {
@@ -701,25 +689,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         thu7 = findViewById(R.id.thu_7);
 
 /**
-        boolean isInserted = myDb.insertData(
-                mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
-                mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
-                mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
-                mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
-                mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
-                mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
-                mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
+ boolean isInserted = myDb.insertData(
+ mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
+ mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
+ mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
+ mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
+ mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
+ mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
+ mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
 
-        if (isInserted == true) {
-            Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+ if (isInserted == true) {
+ Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
 
-            ReadSQL();
+ ReadSQL();
 
-        } else
-            Toast.makeText(MainActivity.this, "Data is not Inserted", Toast.LENGTH_SHORT).show();
+ } else
+ Toast.makeText(MainActivity.this, "Data is not Inserted", Toast.LENGTH_SHORT).show();
 
-        myDb.close();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+ myDb.close();
+ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
  */
     }
 
@@ -733,71 +721,71 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         recreate();
     }
 
-    public void ViewTimeTable(View view) {
+//    public void ViewTimeTable(View view) {
+//
+//        //read from SQLite
+//        Cursor res = myDb.getAllData();
+//
+//        if (res != null) {
+//            while (res.moveToNext()) {
+//                Monday1 = (res.getString(1));
+//                Monday2 = (res.getString(6));
+//                Monday3 = (res.getString(11));
+//                Monday4 = (res.getString(16));
+//                Monday5 = (res.getString(21));
+//                Monday6 = (res.getString(26));
+//
+//                Tuesday1 = (res.getString(2));
+//                Tuesday2 = (res.getString(7));
+//                Tuesday3 = (res.getString(12));
+//                Tuesday4 = (res.getString(17));
+//                Tuesday5 = (res.getString(22));
+//                Tuesday6 = (res.getString(27));
+//
+//                Wednesday1 = (res.getString(3));
+//                Wednesday2 = (res.getString(8));
+//                Wednesday3 = (res.getString(13));
+//                Wednesday4 = (res.getString(18));
+//                Wednesday5 = (res.getString(23));
+//                Wednesday6 = (res.getString(28));
+//
+//                Thursday1 = (res.getString(4));
+//                Thursday2 = (res.getString(9));
+//                Thursday3 = (res.getString(14));
+//                Thursday4 = (res.getString(19));
+//                Thursday5 = (res.getString(24));
+//                Thursday6 = (res.getString(29));
+//
+//                Friday1 = (res.getString(5));
+//                Friday2 = (res.getString(10));
+//                Friday3 = (res.getString(15));
+//                Friday4 = (res.getString(20));
+//                Friday5 = (res.getString(25));
+//                Friday6 = (res.getString(30));
+//
+//            }
+//            res.close();
+//        }
+//    }
 
-        //read from SQLite
-        Cursor res = myDb.getAllData();
+//    public void showMessage(String title, String Message) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(true);
+//        builder.setTitle(title);
+//        builder.setMessage(Message);
+//        builder.show();
+//    }
 
-        if (res != null) {
-            while (res.moveToNext()) {
-                Monday1 = (res.getString(1));
-                Monday2 = (res.getString(6));
-                Monday3 = (res.getString(11));
-                Monday4 = (res.getString(16));
-                Monday5 = (res.getString(21));
-                Monday6 = (res.getString(26));
-
-                Tuesday1 = (res.getString(2));
-                Tuesday2 = (res.getString(7));
-                Tuesday3 = (res.getString(12));
-                Tuesday4 = (res.getString(17));
-                Tuesday5 = (res.getString(22));
-                Tuesday6 = (res.getString(27));
-
-                Wednesday1 = (res.getString(3));
-                Wednesday2 = (res.getString(8));
-                Wednesday3 = (res.getString(13));
-                Wednesday4 = (res.getString(18));
-                Wednesday5 = (res.getString(23));
-                Wednesday6 = (res.getString(28));
-
-                Thursday1 = (res.getString(4));
-                Thursday2 = (res.getString(9));
-                Thursday3 = (res.getString(14));
-                Thursday4 = (res.getString(19));
-                Thursday5 = (res.getString(24));
-                Thursday6 = (res.getString(29));
-
-                Friday1 = (res.getString(5));
-                Friday2 = (res.getString(10));
-                Friday3 = (res.getString(15));
-                Friday4 = (res.getString(20));
-                Friday5 = (res.getString(25));
-                Friday6 = (res.getString(30));
-
-            }
-            res.close();
-        }
-    }
-
-    public void showMessage(String title, String Message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
-
-    public void ReadSQL() {
-        Cursor res = myDb.getAllData();
-
-        if (res.getCount() == 0) {
-            showMessage("Error", "Nothing Found");
-            res.close();
-            return;
-        }
-
-    }
+//    public void ReadSQL() {
+//        Cursor res = myDb.getAllData();
+//
+//        if (res.getCount() == 0) {
+//            showMessage("Error", "Nothing Found");
+//            res.close();
+//            return;
+//        }
+//
+//    }
 
     public void onShowQuitDialog() {
         Close_dialog close_dialog = new Close_dialog();
@@ -807,23 +795,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
-
     public class DayViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        public String monday = getString(R.string.monday);
-        public String tuesday = getString(R.string.tuesday);
-        public String wednesday = getString(R.string.wednesday);
-        public String thursday = getString(R.string.thursday);
-        public String friday = getString(R.string.friday);
+        String monday = getString(R.string.monday);
+        String tuesday = getString(R.string.tuesday);
+        String wednesday = getString(R.string.wednesday);
+        String thursday = getString(R.string.thursday);
+        String friday = getString(R.string.friday);
 
         static final int NUM_ITEMS = 5;
-        final String[] TAB_TITLES = new String[]{ monday, tuesday, wednesday, thursday, friday};
+        final String[] TAB_TITLES = new String[]{monday, tuesday, wednesday, thursday, friday};
 
 
-
-
-        public DayViewPagerAdapter(FragmentManager fragmentManager) {
+        DayViewPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
             saveState();
 
@@ -864,7 +848,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
 
 
     }

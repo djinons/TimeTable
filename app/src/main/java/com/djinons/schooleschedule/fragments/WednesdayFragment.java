@@ -1,7 +1,9 @@
 package com.djinons.schooleschedule.fragments;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +45,13 @@ public class WednesdayFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         MainActivity activity = (MainActivity) getActivity();
+        assert activity != null;
         String studentname = activity.getMyData();
 
         out.println("fragment"+studentname);

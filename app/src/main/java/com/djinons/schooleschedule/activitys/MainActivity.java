@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 //Convert set into list
-        List<String> list = new ArrayList<String>(set);
+        List<String> list = new ArrayList<>(set);
 //Sort Data Alphabetical order
         Collections.sort(list, new Comparator<String>() {
             @Override
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 return lhs.compareTo(rhs);
             }
         });
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         toolbarspinner.setAdapter(adapter);

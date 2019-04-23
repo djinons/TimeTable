@@ -3,7 +3,7 @@
     <color name="colorBack">#ebbdc1c2</color>
 
     <color name="black_overlay">#66000000</color>
-    <color name="colorPrimary">#2196f3</color>
+
     <color name="conf_del_false_state">#ff704d</color>
     <color name="bg_group_item_normal_state">#2196f3</color>
     <color name="bg_group_item_normal_pressed_state">#1976D2</color>

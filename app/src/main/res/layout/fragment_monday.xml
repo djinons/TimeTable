@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="com.djinons.schooleschedule.fragments.MondayFragment">
 
@@ -17,6 +18,7 @@
             android:id="@+id/day_name_mon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:background="@drawable/border"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/monday"
@@ -36,6 +38,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -95,6 +99,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -154,6 +159,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -214,6 +221,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -274,6 +282,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -333,6 +343,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -392,6 +403,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
@@ -461,7 +474,9 @@
                     android:id="@+id/first_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
+
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="TextView"
@@ -471,6 +486,9 @@
                     android:id="@+id/second_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
@@ -481,7 +499,9 @@
                     android:id="@+id/thrid_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
+
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="TextView"
@@ -491,6 +511,9 @@
                     android:id="@+id/forth_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
@@ -501,7 +524,9 @@
                     android:id="@+id/fifth_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
+
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="TextView"
@@ -511,6 +536,9 @@
                     android:id="@+id/sixth_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
@@ -521,7 +549,9 @@
                     android:id="@+id/seventh_class_mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:layout_weight="1"
+
                     android:background="@drawable/border"
                     android:gravity="center_vertical|center_horizontal"
                     android:textSize="24sp" />

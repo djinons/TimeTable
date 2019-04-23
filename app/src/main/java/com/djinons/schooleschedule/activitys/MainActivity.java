@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.djinons.schooleschedule.DbHelper;
 import com.djinons.schooleschedule.R;
 import com.djinons.schooleschedule.dialogs.Close_dialog;
 import com.djinons.schooleschedule.dialogs.Info_dialog;
+import com.djinons.schooleschedule.fragments.ClassStartEndFragment;
 import com.djinons.schooleschedule.fragments.FridayFragment;
 import com.djinons.schooleschedule.fragments.MondayFragment;
 import com.djinons.schooleschedule.fragments.ThursdayFragment;
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayAdapter<String> adapter;
 
 
+    public static String FRAGMENT_TAG = "";
+
+
     Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
     Spinner tue1, tue2, tue3, tue4, tue5, tue6, tue7;
     Spinner wed1, wed2, wed3, wed4, wed5, wed6, wed7;
@@ -70,6 +75,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     String Thursday1, Thursday2, Thursday3, Thursday4, Thursday5, Thursday6, Thursday7;
     String Friday1, Friday2, Friday3, Friday4, Friday5, Friday6, Friday7;
     String studentname;
+
+    private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
+            //  SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            if (drawerItem instanceof Nameable)
+                //               if (drawerItem.getIdentifier() == 100) {
+                //        editor.putBoolean(Const.DEFAULT_THEME, isChecked).apply(); //commit
+//                    if (isChecked) {
+//                        Const.theme = true;
+//                        ChangeTheme.changeToTheme(MainActivity.this, ChangeTheme.THEME_DARK);
+//                    } else {
+//                        ChangeTheme.changeToTheme(MainActivity.this, ChangeTheme.THEME_LIGHT);
+//                        Const.theme = false;
+//                    }
+//                }
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                //                updateNotificationBadge(false);
+                            }
+                        }
+                        , 500);
+        }
+    };
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -260,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
        // invalidateOptionsMenu();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbarspinner = findViewById(R.id.spinner_nav_sub);
 
@@ -549,8 +580,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         close_dialog.show(frt, "close_dialog");
     }
 
+    public void clearBackStack() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }
 
-
+    public void switchFragmentNoBackStackByTag(int id, Fragment fragment, String fragment_tag) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        // fragmentTransaction.setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out);
+        fragmentTransaction.replace(id, fragment, fragment_tag);
+        //fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     public class DayViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -607,7 +650,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
 
 
     }

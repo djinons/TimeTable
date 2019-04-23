@@ -10,7 +10,7 @@
     <color name="bg_group_item_expanded_state">#1566b7</color>
     <color name="bg_group_item_expanded_pressed_state">#1976D2</color>
     <color name="colorPrimaryDark">#104d89</color>
-    <color name="colorAccent">#1976d2</color>
+    <color name="colorAccent">#1976D2</color>
     <color name="colorDrawerBackground">#263238</color>
     <color name="colorDrawerBackgroundLight">#f9f9f9</color>
     <color name="floatFragmentBackgroundAccent">#d23479ae</color>

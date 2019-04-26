@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 
 import com.djinons.schooleschedule.DbHelper;
 import com.djinons.schooleschedule.R;
+import com.djinons.schooleschedule.activitys.MainActivity;
 
 
 public class ClassStartEndFragment extends Fragment {
@@ -53,7 +54,7 @@ public class ClassStartEndFragment extends Fragment {
     int mMinuteend;
 
     DbHelper myDb;
-    Context context = getContext();
+    Context context;
 
 
     // TODO: Rename and change types of parameters
@@ -67,14 +68,14 @@ public class ClassStartEndFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static ClassStartEndFragment newInstance(String param1, String param2) {
-        ClassStartEndFragment fragment = new ClassStartEndFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static ClassStartEndFragment newInstance(String param1, String param2) {
+//        ClassStartEndFragment fragment = new ClassStartEndFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public static Fragment newInstance(String title) {
         ClassStartEndFragment f = new ClassStartEndFragment();
@@ -100,7 +101,16 @@ public class ClassStartEndFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        MainActivity activity = (MainActivity) getActivity();
+
+
+
         View view = inflater.inflate(R.layout.fragment_class_start_end, container, false);
+
+        context = getActivity();
+
+        myDb = new DbHelper(context);
+        myDb.getWritableDatabase();
 
 
         mon1startAM = view.findViewById(R.id.mon1startAM);
@@ -137,13 +147,18 @@ public class ClassStartEndFragment extends Fragment {
         return view;
     }
 
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        myDb = new DbHelper(context);
+//        myDb.getWritableDatabase();
+//    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
-        myDb = new DbHelper(context);
-        myDb.getWritableDatabase();
 
         Cursor resStartEnd = myDb.getRow1StartEnd();
 
@@ -615,16 +630,16 @@ public class ClassStartEndFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {

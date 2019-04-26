@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:baselineAligned="false"
-    android:elevation="16dp"
     android:orientation="vertical"
     android:saveEnabled="true"
     tools:context="com.djinons.schooleschedule.activitys.MainActivity">
@@ -18,7 +17,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="?attr/colorPrimary"
-        android:elevation="14dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:visibility="visible"
@@ -51,15 +49,15 @@
     </android.support.v7.widget.Toolbar>
 
 
-
-
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewPagerTab"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:clipToPadding="false"
+        android:layout_height="42dp"
+        android:clipToPadding="true"
         android:paddingLeft="4dp"
+        android:paddingTop="4dp"
         android:paddingRight="4dp"
+        android:visibility="visible"
         app:stl_defaultTabTextColor="#FFFFFFFF"
         app:stl_defaultTabTextHorizontalPadding="18dp"
         app:stl_dividerColor="#00000000"
@@ -70,19 +68,24 @@
         app:stl_indicatorInterpolation="smart"
         app:stl_indicatorThickness="36dp"
         app:stl_underlineColor="#00000000"
-        app:stl_underlineThickness="0dp"
-        />
+        app:stl_underlineThickness="0dp" />
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
-
-
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:visibility="visible">
 
     </android.support.v4.view.ViewPager>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
 
 
 </LinearLayout>

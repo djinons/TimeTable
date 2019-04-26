@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public static String FRAGMENT_TAG = "";
+    SmartTabLayout viewPagerTab;
 
 
     Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             vPager.setAdapter(dayViewPagerAdapter);
 
-            SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
+            viewPagerTab = findViewById(R.id.viewPagerTab);
             viewPagerTab.setViewPager(vPager);
 
         } else if (vPager == null) {
@@ -491,6 +492,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     out.println("========trigered");
                                     fragment = ClassStartEndFragment.newInstance("Set Start/End Time");
                                     FRAGMENT_TAG = "fragment_set_start_end_time_tag";
+                                    vPager.setVisibility(View.GONE);
+                                    viewPagerTab.setVisibility(View.GONE);
+
                                     break;
 //                                    case 12:
 //                                        // clearBackStack();
@@ -512,7 +516,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                                     break;
                             }
-                            switchFragmentNoBackStackByTag(R.id.vPager, fragment, FRAGMENT_TAG);
+                            switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
 
                         }
                         if (drawerItem instanceof Nameable) {

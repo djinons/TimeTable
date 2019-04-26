@@ -22,11 +22,15 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:gravity="center_vertical"
@@ -73,6 +77,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -118,6 +124,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -163,6 +171,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -208,6 +218,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -253,6 +265,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -298,6 +312,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -352,6 +368,8 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/am" />
@@ -359,6 +377,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -382,6 +402,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -405,6 +427,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -428,6 +452,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -451,6 +477,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -474,6 +502,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -497,6 +527,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -528,6 +560,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/border"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/pm" />
@@ -535,6 +568,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -558,6 +592,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -581,6 +616,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -604,6 +640,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -627,6 +664,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -650,6 +688,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -673,6 +712,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border"
                 android:orientation="vertical">

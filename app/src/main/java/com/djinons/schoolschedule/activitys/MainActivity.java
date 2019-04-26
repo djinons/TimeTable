@@ -26,6 +26,7 @@ import com.djinons.schoolschedule.DbHelper;
 import com.djinons.schoolschedule.R;
 import com.djinons.schoolschedule.dialogs.Close_dialog;
 import com.djinons.schoolschedule.dialogs.Info_dialog;
+import com.djinons.schoolschedule.fragments.AddClassnameFragment;
 import com.djinons.schoolschedule.fragments.ClassStartEndFragment;
 import com.djinons.schoolschedule.fragments.FridayFragment;
 import com.djinons.schoolschedule.fragments.MondayFragment;
@@ -33,6 +34,9 @@ import com.djinons.schoolschedule.fragments.ThursdayFragment;
 import com.djinons.schoolschedule.fragments.TuesdayFragment;
 import com.djinons.schoolschedule.fragments.WednesdayFragment;
 import com.djinons.schoolschedule.models.SchedulenameModel;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -72,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public static String FRAGMENT_TAG = "";
     SmartTabLayout viewPagerTab;
+    private boolean doubleBackToExitPressedOnce = false;
+
 
 
     Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
@@ -280,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -296,17 +301,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
             MainActivity.this.startActivity(addClassIntent);
 
-        }else if (gotschedule.getCount() < 1) {
+        } else if (gotschedule.getCount() < 1) {
             Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
             MainActivity.this.startActivity(addScheduleIntent);
         }
 
 
-
-
         setContentView(R.layout.activity_main);
 
-       // invalidateOptionsMenu();
+        // invalidateOptionsMenu();
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -387,7 +390,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 .withActionBarDrawerToggleAnimated(true)
                 .withAccountHeader(headerDrawer)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home")
+                        new PrimaryDrawerItem()
+                                .withName("Home")
                                 .withIcon(R.drawable.ic_home_black)
                                 .withIdentifier(1),
 //                            new PrimaryDrawerItem()
@@ -449,12 +453,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null) {
                             Fragment fragment;
-                            out.println(drawerItem.getIdentifier());
                             switch ((int) drawerItem.getIdentifier()) {
-//                                    case 1:
+//                                   case 1:
 //                                        clearBackStack();
 //                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
 //                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
+//                                        vPager.setVisibility(View.VISIBLE);
+//                                        viewPagerTab.setVisibility(View.VISIBLE);
+
 //                                        break;
 //                                    case 3:
 //                                        clearBackStack();
@@ -481,20 +487,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
 //                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
 //                                        break;
-//                                    case 10:
-//                                        clearBackStack();
-//                                        fragment = EmployeeFragment.newInstance(getString(R.string.title_fragment_employees));
-//                                        FRAGMENT_TAG = getString(R.string.fragment_employees_tag);
-//                                        break;
+                                case 10:
+                                    clearBackStack();
+                                    fragment = AddClassnameFragment.newInstance("Add Classname");
+                                    FRAGMENT_TAG = "fragment_add_classname_tag";
+                                    vPager.setVisibility(View.GONE);
+                                    viewPagerTab.setVisibility(View.GONE);
+                                    break;
                                 case 50:
                                     clearBackStack();
-                                    //  Const.teamLeaderCheckingEmployees = false;
-                                    out.println("========trigered");
                                     fragment = ClassStartEndFragment.newInstance("Set Start/End Time");
                                     FRAGMENT_TAG = "fragment_set_start_end_time_tag";
                                     vPager.setVisibility(View.GONE);
                                     viewPagerTab.setVisibility(View.GONE);
-
                                     break;
 //                                    case 12:
 //                                        // clearBackStack();
@@ -589,11 +594,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //    }
 
 
-
-
-
-
-
         int id = 0;
         String name = null;
         ArrayList<SchedulenameModel> ScheduleNameArray = new ArrayList<>();
@@ -655,14 +655,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             getMenuInflater().inflate(R.menu.menu_inicial, menu);
 
 
-        }else if (gotschedule.getCount() < 1){
+        } else if (gotschedule.getCount() < 1) {
             getMenuInflater().inflate(R.menu.menu_got_classname, menu);
 
-        }else{
+        } else {
             getMenuInflater().inflate(R.menu.menu_got_classname_schedule, menu);
         }
-            return true;
+        return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -681,14 +682,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          searchCities();
          return true;
          }*/
-         if (id == R.id.action_addClassname) {
-             Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
-             MainActivity.this.startActivity(addClassIntent);
-         }
-         if (id == R.id.action_edit) {
+        if (id == R.id.action_addClassname) {
+            Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
+            MainActivity.this.startActivity(addClassIntent);
+        }
+        if (id == R.id.action_edit) {
             Intent editIntent = new Intent(MainActivity.this, EditDeleteActivity.class);
             MainActivity.this.startActivity(editIntent);
-         }
+        }
         if (id == R.id.action_class_start_end) {
             Intent startendIntent = new Intent(MainActivity.this, ClassStartEndActivity.class);
             MainActivity.this.startActivity(startendIntent);
@@ -702,22 +703,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             MainActivity.this.startActivity(addScheduleIntent);
         }
 
-         if (id == R.id.action_about) {
+        if (id == R.id.action_about) {
             aboutDialog();
             return true;
-         }
-         return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
-    @Override
-    public void onBackPressed() {
-        onShowQuitDialog();
-    }
+
 
     private void aboutDialog() {
         Info_dialog info_dialog = new Info_dialog();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.addToBackStack(null);
-        info_dialog.show(ft,"info_dialog");
+        info_dialog.show(ft, "info_dialog");
     }
 
     public void SaveTimeTable() {
@@ -765,25 +763,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         thu7 = findViewById(R.id.thu_7);
 
 /**
-        boolean isInserted = myDb.insertData(
-                mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
-                mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
-                mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
-                mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
-                mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
-                mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
-                mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
+ boolean isInserted = myDb.insertData(
+ mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
+ mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
+ mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
+ mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
+ mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
+ mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
+ mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
 
-        if (isInserted == true) {
-            Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+ if (isInserted == true) {
+ Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
 
-            ReadSQL();
+ ReadSQL();
 
-        } else
-            Toast.makeText(MainActivity.this, "Data is not Inserted", Toast.LENGTH_SHORT).show();
+ } else
+ Toast.makeText(MainActivity.this, "Data is not Inserted", Toast.LENGTH_SHORT).show();
 
-        myDb.close();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+ myDb.close();
+ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
  */
     }
 
@@ -863,6 +861,72 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else {
+            int fragmentBackStackCount = getSupportFragmentManager().getBackStackEntryCount();
+            if (fragmentBackStackCount > 0) {
+                Fragment fr = getSupportFragmentManager().getFragments().get(0);
+                FRAGMENT_TAG = fr.getTag();
+
+                getSupportFragmentManager().beginTransaction()
+//                        .setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out)
+                        .replace(R.id.fragment_container, fr,FRAGMENT_TAG)
+                        .commit();
+
+                // getSupportFragmentManager().popBackStack();
+
+                clearBackStack();
+
+
+            } else {
+                // Close application
+                if (doubleBackToExitPressedOnce) {
+//                        if (sharedPreferences.getString("username", "").equals("")) {
+//                            Intent i = new Intent(getApplicationContext(), NotificationBackgroundService.class);
+//                            i.putExtra("notificationURL", Const.SERVICE_GET_ALL_NOTIFICATIONS);
+//                            i.putExtra("username", Const.loggedUser.getUsername());
+//                            i.putExtra("password", Const.loggedUser.getPassword());
+//                            i.putExtra("sleepTimer", 0);
+//                            startService(i);
+//                        }
+                    super.onBackPressed();
+                    return;
+                }
+                if (drawer.getCurrentSelection() != 1) {
+                    drawer.setSelection(1, true);
+                    // getSupportFragmentManager().getBackStackEntryAt(0);
+                }
+                else {
+                    this.doubleBackToExitPressedOnce = true;
+
+                    SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
+                            .setText("Press again to exit")
+                            .setDuration(Style.DURATION_LONG)
+                            .setFrame(Style.FRAME_LOLLIPOP)
+                            .setColor(PaletteUtils.getSolidColor(PaletteUtils.DARK_GREY))
+                            .setAnimations(Style.ANIMATIONS_POP).show();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false;
+                        }
+                    }, Style.DURATION_LONG);
+                }
+            }
+        }
+
+    }
+
+
+
+
+
     public void onShowQuitDialog() {
         Close_dialog close_dialog = new Close_dialog();
         FragmentTransaction frt = getSupportFragmentManager().beginTransaction();
@@ -894,9 +958,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public String friday = getString(R.string.friday);
 
         static final int NUM_ITEMS = 5;
-        final String[] TAB_TITLES = new String[]{ monday, tuesday, wednesday, thursday, friday};
-
-
+        final String[] TAB_TITLES = new String[]{monday, tuesday, wednesday, thursday, friday};
 
 
         public DayViewPagerAdapter(FragmentManager fragmentManager) {
@@ -940,6 +1002,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
+
+
 
 
     }

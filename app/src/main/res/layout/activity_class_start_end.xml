@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
-    tools:context="com.djinons.schooleschedule.activitys.ClassStartEndActivity">
+    tools:context="com.djinons.schoolschedule.activitys.ClassStartEndActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

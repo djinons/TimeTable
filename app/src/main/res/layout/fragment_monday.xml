@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context="com.djinons.schooleschedule.fragments.MondayFragment">
+    tools:context="com.djinons.schoolschedule.fragments.MondayFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

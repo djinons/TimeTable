@@ -6,7 +6,7 @@
     android:background="@android:color/darker_gray"
     android:orientation="vertical"
     android:saveEnabled="true"
-    tools:context="com.djinons.schooleschedule.activitys.EditTimeTableActivity">
+    tools:context="com.djinons.schoolschedule.activitys.EditTimeTableActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

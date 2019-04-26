@@ -7,7 +7,7 @@
     android:elevation="16dp"
     android:orientation="vertical"
     android:saveEnabled="true"
-    tools:context="com.djinons.schooleschedule.activitys.MainActivity">
+    tools:context="com.djinons.schoolschedule.activitys.MainActivity">
 
 
     <android.support.v7.widget.Toolbar

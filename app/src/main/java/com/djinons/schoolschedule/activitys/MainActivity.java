@@ -66,40 +66,31 @@ import static java.lang.System.out;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static Drawer drawer = null;
+    public static String FRAGMENT_TAG = "";
     ViewPager vPager;
     DayViewPagerAdapter dayViewPagerAdapter;
     DbHelper myDb;
-    public static Drawer drawer = null;
-
     ArrayAdapter<String> adapter;
-
-
-    public static String FRAGMENT_TAG = "";
     SmartTabLayout viewPagerTab;
-    private boolean doubleBackToExitPressedOnce = false;
-
-
-
     Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
     Spinner tue1, tue2, tue3, tue4, tue5, tue6, tue7;
     Spinner wed1, wed2, wed3, wed4, wed5, wed6, wed7;
     Spinner thu1, thu2, thu3, thu4, thu5, thu6, thu7;
     Spinner fri1, fri2, fri3, fri4, fri5, fri6, fri7;
     Spinner toolbarspinner;
-
     TextView mon1t, mon2t, mon3t, mon4t, mon5t, mon6t, mon7t;
     TextView tue1t, tue2t, tue3t, tue4t, tue5t, tue6t, tue7t;
     TextView wed1t, wed2t, wed3t, wed4t, wed5t, wed6t, wed7t;
     TextView thu1t, thu2t, thu3t, thu4t, thu5t, thu6t, thu7t;
     TextView fri1t, fri2t, fri3t, fri4t, fri5t, fri6t, fri7t;
-
     String Monday1, Monday2, Monday3, Monday4, Monday5, Monday6, Monday7;
     String Tuesday1, Tuesday2, Tuesday3, Tuesday4, Tuesday5, Tuesday6, Tuesday7;
     String Wednesday1, Wednesday2, Wednesday3, Wednesday4, Wednesday5, Wednesday6, Wednesday7;
     String Thursday1, Thursday2, Thursday3, Thursday4, Thursday5, Thursday6, Thursday7;
     String Friday1, Friday2, Friday3, Friday4, Friday5, Friday6, Friday7;
     String studentname;
-
+    private boolean doubleBackToExitPressedOnce = false;
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
@@ -479,20 +470,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                        fragment = AboutUsFragment.newInstance(getString(R.string.title_fragment_about_us));
 //                                        FRAGMENT_TAG = getString(R.string.fragment_about_us_tag);
 //                                        break;
-//                                    case 21:
-//                                        clearBackStack();
-//                                        showAlertLogOut();
-//                                        drawer.setSelection(1, true);
-//                                        checkLogOut = true;
-//                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
-//                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
-//                                        break;
+                                case 11:
+                                    drawer.setSelection(1, true);
+                                    Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
+                                    MainActivity.this.startActivity(addScheduleIntent);
+                                    break;
                                 case 10:
                                     clearBackStack();
                                     fragment = AddClassnameFragment.newInstance("Add Classname");
                                     FRAGMENT_TAG = "fragment_add_classname_tag";
                                     vPager.setVisibility(View.GONE);
                                     viewPagerTab.setVisibility(View.GONE);
+                                    switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
                                     break;
                                 case 50:
                                     clearBackStack();
@@ -500,6 +489,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     FRAGMENT_TAG = "fragment_set_start_end_time_tag";
                                     vPager.setVisibility(View.GONE);
                                     viewPagerTab.setVisibility(View.GONE);
+                                    switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
                                     break;
 //                                    case 12:
 //                                        // clearBackStack();
@@ -521,7 +511,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                                     break;
                             }
-                            switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+
 
                         }
                         if (drawerItem instanceof Nameable) {
@@ -862,7 +852,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     public void onBackPressed() {
         if (drawer != null && drawer.isDrawerOpen()) {
@@ -875,10 +864,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 getSupportFragmentManager().beginTransaction()
 //                        .setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out)
-                        .replace(R.id.fragment_container, fr,FRAGMENT_TAG)
+                        .replace(R.id.fragment_container, fr, FRAGMENT_TAG)
                         .commit();
 
-                // getSupportFragmentManager().popBackStack();
+                 getSupportFragmentManager().popBackStack();
 
                 clearBackStack();
 
@@ -900,8 +889,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (drawer.getCurrentSelection() != 1) {
                     drawer.setSelection(1, true);
                     // getSupportFragmentManager().getBackStackEntryAt(0);
-                }
-                else {
+                } else {
                     this.doubleBackToExitPressedOnce = true;
 
                     SuperActivityToast.create(this, new Style(), Style.TYPE_STANDARD)
@@ -922,9 +910,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
     }
-
-
-
 
 
     public void onShowQuitDialog() {
@@ -951,13 +936,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public class DayViewPagerAdapter extends FragmentStatePagerAdapter {
 
+        static final int NUM_ITEMS = 5;
         public String monday = getString(R.string.monday);
         public String tuesday = getString(R.string.tuesday);
         public String wednesday = getString(R.string.wednesday);
         public String thursday = getString(R.string.thursday);
         public String friday = getString(R.string.friday);
-
-        static final int NUM_ITEMS = 5;
         final String[] TAB_TITLES = new String[]{monday, tuesday, wednesday, thursday, friday};
 
 
@@ -1002,8 +986,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
-
 
 
     }

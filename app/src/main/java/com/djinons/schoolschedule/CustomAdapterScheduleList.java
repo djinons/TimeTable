@@ -63,11 +63,11 @@ public class CustomAdapterScheduleList extends BaseAdapter {
         convertView = null;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.student_list_item, null);
+            convertView = mInflater.inflate(R.layout.student_classname_list_item, null);
 
 
 
-            final TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+            final TextView tvName = (TextView) convertView.findViewById(R.id.nameTV);
 
             ImageView imgEdit = (ImageView) convertView.findViewById(R.id.imgEdit);
 

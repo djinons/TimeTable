@@ -59,7 +59,7 @@ public class CustomAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.item, null);
 
-            final TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+            final TextView tvName = (TextView) convertView.findViewById(R.id.nameTV);
             ImageView imgRemove = (ImageView) convertView.findViewById(R.id.imgRemove);
 
             final ClassnameModel m = ClassnameArray.get(position);

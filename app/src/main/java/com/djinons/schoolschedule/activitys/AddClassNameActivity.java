@@ -38,7 +38,7 @@ public class AddClassNameActivity extends ListActivity {
 
         setContentView(R.layout.activity_add_class_name);
         listView = (ListView) findViewById(R.id.listView);
-        editTextView = (EditText) findViewById(R.id.editTextView);
+        editTextView = (EditText) findViewById(R.id.editTV);
         itemClassnameModelList = new ArrayList<ClassnameModel>();
         customAdapter = new CustomAdapter(getApplicationContext(), itemClassnameModelList);
         listView.setEmptyView(findViewById(android.R.id.empty));

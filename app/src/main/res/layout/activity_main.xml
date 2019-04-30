@@ -3,20 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@color/md_light_blue_400"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:saveEnabled="true"
     tools:context="com.djinons.schoolschedule.activitys.MainActivity">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="?attr/colorPrimary"
+        android:layout_marginRight="8dp"
+
+        android:background="@drawable/border"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:visibility="visible"
@@ -33,18 +35,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:text="@string/day_preview"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="8dp" />
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinner_nav_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:popupBackground="@color/colorPrimary"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:popupBackground="@color/colorPrimary" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -83,9 +85,7 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
-
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

@@ -27,8 +27,6 @@ public class AddClassnameRecyclerViewAdapter  extends RecyclerView.Adapter<CardV
     }
 
 
-
-
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

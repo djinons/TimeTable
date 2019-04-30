@@ -99,9 +99,6 @@ public class AddClassnameFragment extends Fragment {
 
 
 
-  //      classnameList = Const.allEmployees;
-
-
         classnameAdapter = new AddClassnameRecyclerViewAdapter(classnameList, ((MainActivity) getActivity()));
         recyclerView.setAdapter(classnameAdapter);
 

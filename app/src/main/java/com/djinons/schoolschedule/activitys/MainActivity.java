@@ -28,6 +28,7 @@ import com.djinons.schoolschedule.dialogs.Close_dialog;
 import com.djinons.schoolschedule.dialogs.Info_dialog;
 import com.djinons.schoolschedule.fragments.AddClassnameFragment;
 import com.djinons.schoolschedule.fragments.ClassStartEndFragment;
+import com.djinons.schoolschedule.fragments.EditDeleteScheduleFragment;
 import com.djinons.schoolschedule.fragments.FridayFragment;
 import com.djinons.schoolschedule.fragments.MondayFragment;
 import com.djinons.schoolschedule.fragments.ThursdayFragment;
@@ -496,11 +497,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                        fragment = NewAbsenceFragment.newInstance(getString(R.string.title_fragment_new_absence));
 //                                        FRAGMENT_TAG = getString(R.string.fragment_new_absences_tag);
 //                                        break;
-//                                    case 15:
-//                                        clearBackStack();
-//                                        fragment = RealizationsFragment.newInstance(getString(R.string.title_fragment_realizations));
-//                                        FRAGMENT_TAG = getString(R.string.fragment_realizations_tag);
-//                                        break;
+                                    case 15:
+                                        clearBackStack();
+                                        fragment = EditDeleteScheduleFragment.newInstance("Edit/Delete Schedule");
+                                        FRAGMENT_TAG = "fragment_edit_delete_schedule_tag";
+                                        vPager.setVisibility(View.GONE);
+                                        viewPagerTab.setVisibility(View.GONE);
+                                        switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+                                        break;
 //                                    case 102:
 //                                        toolbarTitle = toolbar.getTitle().toString();
 //                                        notificationFrequencyDialogOpen = true;
@@ -631,74 +635,74 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return studentname;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        Cursor gotclassname = myDb.getAllDataClass();
+//        Cursor gotschedule = myDb.getAllScheduleName();
+//
+//        LayoutInflater layoutInflater = LayoutInflater.from(this);
+//
+//
+//        if (gotclassname.getCount() < 2) {
+//            getMenuInflater().inflate(R.menu.menu_inicial, menu);
+//
+//
+//        } else if (gotschedule.getCount() < 1) {
+//            getMenuInflater().inflate(R.menu.menu_got_classname, menu);
+//
+//        } else {
+//            getMenuInflater().inflate(R.menu.menu_got_classname_schedule, menu);
+//        }
+//        return true;
+//    }
 
-        // Inflate the menu; this adds items to the action bar if it is present.
-        Cursor gotclassname = myDb.getAllDataClass();
-        Cursor gotschedule = myDb.getAllScheduleName();
-
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-
-
-        if (gotclassname.getCount() < 2) {
-            getMenuInflater().inflate(R.menu.menu_inicial, menu);
-
-
-        } else if (gotschedule.getCount() < 1) {
-            getMenuInflater().inflate(R.menu.menu_got_classname, menu);
-
-        } else {
-            getMenuInflater().inflate(R.menu.menu_got_classname_schedule, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        /**  if (id == R.id.action_refresh) {
-         if (isNetworkAvailable()) {
-         getTodayWeather();
-         getLongTermWeather();
-         } else {
-         Snackbar.make(appView, getString(R.string.msg_connection_not_available), Snackbar.LENGTH_LONG).show();
-         }
-         return true;
-         }
-
-         if (id == R.id.action_search) {
-         searchCities();
-         return true;
-         }*/
-        if (id == R.id.action_addClassname) {
-            Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
-            MainActivity.this.startActivity(addClassIntent);
-        }
-        if (id == R.id.action_edit) {
-            Intent editIntent = new Intent(MainActivity.this, EditDeleteActivity.class);
-            MainActivity.this.startActivity(editIntent);
-        }
-        if (id == R.id.action_class_start_end) {
-            Intent startendIntent = new Intent(MainActivity.this, ClassStartEndActivity.class);
-            MainActivity.this.startActivity(startendIntent);
-        }
-        if (id == R.id.help) {
-            Intent helpIntent = new Intent(MainActivity.this, HelpActivity.class);
-            MainActivity.this.startActivity(helpIntent);
-        }
-        if (id == R.id.action_addSchedule) {
-            Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
-            MainActivity.this.startActivity(addScheduleIntent);
-        }
-
-        if (id == R.id.action_about) {
-            aboutDialog();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        /**  if (id == R.id.action_refresh) {
+//         if (isNetworkAvailable()) {
+//         getTodayWeather();
+//         getLongTermWeather();
+//         } else {
+//         Snackbar.make(appView, getString(R.string.msg_connection_not_available), Snackbar.LENGTH_LONG).show();
+//         }
+//         return true;
+//         }
+//
+//         if (id == R.id.action_search) {
+//         searchCities();
+//         return true;
+//         }*/
+//        if (id == R.id.action_addClassname) {
+//            Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
+//            MainActivity.this.startActivity(addClassIntent);
+//        }
+//        if (id == R.id.action_edit) {
+//            Intent editIntent = new Intent(MainActivity.this, EditDeleteActivity.class);
+//            MainActivity.this.startActivity(editIntent);
+//        }
+//        if (id == R.id.action_class_start_end) {
+//            Intent startendIntent = new Intent(MainActivity.this, ClassStartEndActivity.class);
+//            MainActivity.this.startActivity(startendIntent);
+//        }
+//        if (id == R.id.help) {
+//            Intent helpIntent = new Intent(MainActivity.this, HelpActivity.class);
+//            MainActivity.this.startActivity(helpIntent);
+//        }
+//        if (id == R.id.action_addSchedule) {
+//            Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
+//            MainActivity.this.startActivity(addScheduleIntent);
+//        }
+//
+//        if (id == R.id.action_about) {
+//            aboutDialog();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     private void aboutDialog() {

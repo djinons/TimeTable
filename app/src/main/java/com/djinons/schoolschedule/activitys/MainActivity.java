@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     String Friday1, Friday2, Friday3, Friday4, Friday5, Friday6, Friday7;
     String studentname;
     private boolean doubleBackToExitPressedOnce = false;
+
+
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
@@ -334,9 +336,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //                                                }
         AccountHeader headerDrawer = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withCompactStyle(true)
+                .withCompactStyle(false)
                 .withHeaderBackground(R.drawable.header)
-                .withCompactStyle(true)
+             //   .withCompactStyle(true)
                 .withDividerBelowHeader(true)
                 .addProfiles(
                         profile,
@@ -386,36 +388,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 .withName("Home")
                                 .withIcon(R.drawable.ic_home_black)
                                 .withIdentifier(1),
-//                            new PrimaryDrawerItem()
-//                                    .withName(R.string.drawer_item_notifications)
-//                                    .withIcon(R.drawable.ic_notifications_black)
-//                                    .withIdentifier(3)
-//                                    .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE)
-//                                            .withColorRes(R.color.colorAccent)),
-//                            new PrimaryDrawerItem()
-//                                    .withName("New message")
-//                                    .withIcon(R.drawable.ic_message_black)
-//                                    .withIdentifier(4)
-//                                    .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE)
-//                                            .withColorRes(R.color.colorAccent)),
-
-                        new PrimaryDrawerItem()
-                                .withName("Add classname")
-                                .withIcon(R.drawable.ic_employees_black)
-                                .withIdentifier(10),
                         new PrimaryDrawerItem()
                                 .withName("Add student")
                                 .withIcon(R.drawable.ic_absences_black)
                                 .withIdentifier(11),
-
                         new PrimaryDrawerItem()
                                 .withName("Edit schedule")
                                 .withIcon(R.drawable.ic_realizations_black)
                                 .withIdentifier(15),
                         new PrimaryDrawerItem()
+                                .withName("Add classname")
+                                .withIcon(R.drawable.ic_employees_black)
+                                .withIdentifier(10),
+                        new PrimaryDrawerItem()
                                 .withName("Set Start/End Time")
                                 .withIcon(R.drawable.ic_realizations_black)
                                 .withIdentifier(50),
+                        new PrimaryDrawerItem()
+                                .withName("My Grades")
+                                .withIcon(R.drawable.ic_realizations_black)
+                                .withIdentifier(60),
 
                         new SectionDrawerItem()
                                 .withName("Accessories")
@@ -431,12 +423,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                 .withIdentifier(100)
                                                 .withSelectable(false)
                                                 //  .withChecked(sharedPreferences.getBoolean(Const.DEFAULT_THEME, false))
-                                                .withOnCheckedChangeListener(onCheckedChangeListener)//TODO comma separator
-//                                            new SecondaryDrawerItem()
-//                                                    .withName(R.string.drawer_item_notification_sleep_timer)
-//                                                    .withIcon(R.drawable.ic_notifications_frequency_black)
-//                                                    .withIdentifier(102)
-//                                                    .withSelectable(false)
+                                                .withOnCheckedChangeListener(onCheckedChangeListener),//TODO comma separator
+                                        new SecondaryDrawerItem()
+                                                    .withName("Language")
+                                                    .withIcon(R.drawable.ic_notifications_frequency_black)
+                                                    .withIdentifier(102)
+                                                    .withSelectable(false)
                                 )
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -497,14 +489,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                                        fragment = NewAbsenceFragment.newInstance(getString(R.string.title_fragment_new_absence));
 //                                        FRAGMENT_TAG = getString(R.string.fragment_new_absences_tag);
 //                                        break;
-                                    case 15:
-                                        clearBackStack();
-                                        fragment = EditDeleteScheduleFragment.newInstance("Edit/Delete Schedule");
-                                        FRAGMENT_TAG = "fragment_edit_delete_schedule_tag";
-                                        vPager.setVisibility(View.GONE);
-                                        viewPagerTab.setVisibility(View.GONE);
-                                        switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
-                                        break;
+                                case 15:
+                                    clearBackStack();
+                                    fragment = EditDeleteScheduleFragment.newInstance("Edit/Delete Schedule");
+                                    FRAGMENT_TAG = "fragment_edit_delete_schedule_tag";
+                                    vPager.setVisibility(View.GONE);
+                                    viewPagerTab.setVisibility(View.GONE);
+                                    switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+                                    break;
 //                                    case 102:
 //                                        toolbarTitle = toolbar.getTitle().toString();
 //                                        notificationFrequencyDialogOpen = true;
@@ -567,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                       }
                 ).addStickyDrawerItems(
                         new SecondaryDrawerItem()
-                                .withName("About")
+                                .withName("Help")
                                 .withIcon(R.drawable.ic_question_sign_dark)
                                 .withIdentifier(20)
                 ).withSavedInstance(savedInstanceState)
@@ -579,7 +571,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 ).withSavedInstance(savedInstanceState)
                 .addStickyDrawerItems(
                         new SecondaryDrawerItem()
-                                .withName("Log out")
+                                .withName("Exit")
                                 .withIcon(R.drawable.ic_log_out_black)
                                 .withIdentifier(21)
 
@@ -631,16 +623,49 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    public Fragment getVisibleFragment(){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+
+
+
+//        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+//        List<Fragment> fragments = fragmentManager.getFragments();
+//        if(fragments != null){
+//            for(Fragment fragment : fragments){
+//                if(fragment != null && fragment.isVisible())
+//                    return fragment;
+//            }
+//        }
+//        return null;
+
+        return currentFragment;
+    }
+
     public String getMyData() {
         return studentname;
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 //
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        Cursor gotclassname = myDb.getAllDataClass();
 //        Cursor gotschedule = myDb.getAllScheduleName();
+
+
+
+
+
+//        if (myFragment != null && myFragment.isVisible()) {
+//            // add your code here
+//
+//            getMenuInflater().inflate(R.menu.menu_edit, menu);
+//        }
+
+
+
 //
 //        LayoutInflater layoutInflater = LayoutInflater.from(this);
 //
@@ -655,8 +680,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        } else {
 //            getMenuInflater().inflate(R.menu.menu_got_classname_schedule, menu);
 //        }
-//        return true;
-//    }
+        return true;
+    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -871,7 +896,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         .replace(R.id.fragment_container, fr, FRAGMENT_TAG)
                         .commit();
 
-                 getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().popBackStack();
 
                 clearBackStack();
 
@@ -923,6 +948,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         close_dialog.show(frt, "close_dialog");
     }
 
+
+
     public void clearBackStack() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -936,6 +963,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         fragmentTransaction.replace(id, fragment, fragment_tag);
         //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        out.println("////////////////////////////////////"+getVisibleFragment());
     }
 
     public class DayViewPagerAdapter extends FragmentStatePagerAdapter {

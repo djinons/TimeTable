@@ -100,6 +100,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         //create classname db
         db.execSQL("create table " + TABLE_CLASSNAME + "(ID INTEGER PRIMARY KEY , " + " CLASSNAME TEXT )");
+
         db.execSQL("insert into " + TABLE_CLASSNAME + "(CLASSNAME) values ('')");
 
         //create classstart db
@@ -308,6 +309,42 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor resScore = db.rawQuery("SELECT * FROM " + TABLE_START_TIME + " WHERE ID = 1", null);
         return resScore;
     }
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+ public void CreateTimeTableForStudent(String studentname) {
+
+     SQLiteDatabase db = this.getWritableDatabase();
+
+     db.execSQL("create table " + TABLE_NAME + studentname + " ( CLASS INTEGER, MONDAY TEXT, TUESDAY TEXT, WEDNESDAY TEXT, THURSDAY TEXT, FRIDAY TEXT )" );
+
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('1')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('2')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('3')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('4')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('5')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('6')");
+     db.execSQL("insert into " + TABLE_NAME + studentname + " (CLASS) values ('7')");
+     //create classname db
+     db.execSQL("create table " + TABLE_CLASSNAME + studentname + " (CLASSNAME_ID INTEGER PRIMARY KEY , " + " CLASSNAME TEXT," +
+                                                  " GRADE1 INTEGER, GRADE2 INTEGER, GRADE3 INTEGER, GRADE4 INTEGER," +
+                                                  " GRADE5 INTEGER, GRADE6 INTEGER, GRADE7 INTEGER, GRADE8 INTEGER )");
+
+ }
+
+ public void UpdateClassnameByID(String studentname, int classname_ID,String newClassname){
+
+     SQLiteDatabase db = this.getWritableDatabase();
+     db.execSQL("UPDATE "+ TABLE_CLASSNAME + studentname + " SET CLASSNAME = " + newClassname + " WHERE CLASSNAME_ID = " + classname_ID );
+
+ }
+
+
+
+
 
 }
 

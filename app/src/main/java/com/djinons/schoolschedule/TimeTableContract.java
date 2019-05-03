@@ -12,7 +12,7 @@ public class TimeTableContract {
     public static final class TimeTableEntry implements BaseColumns {
 
         public static final String DATABASE_NAME = "timetable.db";
-        public static final String TABLE_NAME = "time_table";
+        public static final String TABLE_NAME = "time_table_";
         public static final String NAME = "NAME";
         public static final String COL_2 = "MONDAY1";
         public static final String COL_3 = "TUESDAY1";
@@ -58,7 +58,7 @@ public class TimeTableContract {
 
 
 
-        public static final String TABLE_CLASSNAME = "class_name";
+        public static final String TABLE_CLASSNAME = "class_names_";
         public static final String COL_CLASS = "CLASSNAME";
 
 

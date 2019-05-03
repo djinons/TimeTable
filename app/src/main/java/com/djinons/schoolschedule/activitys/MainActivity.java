@@ -303,6 +303,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         setContentView(R.layout.activity_main);
 
+        myDb.CreateTimeTableForStudent("Dunja");
+
         // invalidateOptionsMenu();
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
@@ -311,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         IProfile profile;
-        profile = new ProfileDrawerItem().withName("Loggen user")//TODO username add
+        profile = new ProfileDrawerItem().withName("Logged user")//TODO username add
                 .withIcon(R.drawable.gravatar);
 
         //   if (!Const.theme) {

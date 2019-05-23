@@ -61,5 +61,6 @@
     <string name="data_not_inserted">Daten nicht eingefügt</string>
     <string name="please_enter_name">Bitte geben Sie den Namen ein</string>
     <string name="please_enter_classname">Bitte geben Sie den Klassennamen ein</string>
+    <string name="MONDAY">MONDAY</string>
 
 </resources>

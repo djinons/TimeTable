@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CardViewHolder extends RecyclerView.ViewHolder {
+public class StudentClassnameCardViewHolder extends RecyclerView.ViewHolder {
 
     TextView nameTV;
     ImageView editIV;
     ImageView deleteIV;
 
-    public CardViewHolder(@NonNull View view) {
+    public StudentClassnameCardViewHolder(@NonNull View view) {
         super(view);
 
         nameTV = view.findViewById(R.id.nameTV);

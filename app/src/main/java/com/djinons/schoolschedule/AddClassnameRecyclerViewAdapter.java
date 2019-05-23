@@ -5,17 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.djinons.schoolschedule.activitys.MainActivity;
 import com.djinons.schoolschedule.models.ClassnameModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AddClassnameRecyclerViewAdapter  extends RecyclerView.Adapter<CardViewHolder>{
+public class AddClassnameRecyclerViewAdapter  extends RecyclerView.Adapter<StudentClassnameCardViewHolder>{
 
-    private CardViewHolder cardViewHolder;
+    private StudentClassnameCardViewHolder studentClassnameCardViewHolder;
     private ArrayList<ClassnameModel> classnameList;
     private MainActivity mainActivity;
 
@@ -29,18 +27,18 @@ public class AddClassnameRecyclerViewAdapter  extends RecyclerView.Adapter<CardV
 
     @NonNull
     @Override
-    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public StudentClassnameCardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_classname_list_item, viewGroup, false);
-        cardViewHolder = new CardViewHolder(view);
+        studentClassnameCardViewHolder = new StudentClassnameCardViewHolder(view);
 
-        return cardViewHolder;
+        return studentClassnameCardViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder cardViewHolder, int i) {
+    public void onBindViewHolder(@NonNull StudentClassnameCardViewHolder studentClassnameCardViewHolder, int i) {
 
-        cardViewHolder.nameTV.setText(classnameList.get(i).getClassname());
+        studentClassnameCardViewHolder.nameTV.setText(classnameList.get(i).getClassname());
 
 
 

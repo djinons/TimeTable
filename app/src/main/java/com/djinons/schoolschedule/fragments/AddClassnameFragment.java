@@ -72,12 +72,12 @@ public class AddClassnameFragment extends Fragment {
         classnameList = new ArrayList<>();
         myDb = new DbHelper(getContext());
         myDb.getWritableDatabase();
-        Cursor resclass = myDb.getAllDataClass();
+        Cursor allClass = myDb.readClassnameTable();
 
-        while (resclass.moveToNext()){
+        while (allClass.moveToNext()){
             ClassnameModel classname = new ClassnameModel(id,name);
-            classname.setId(resclass.getInt(0));
-            classname.setClassname(resclass.getString(1));
+            classname.setId(allClass.getInt(0));
+            classname.setClassname(allClass.getString(1));
 
             if (classname.getId()!=1) {
 
@@ -85,7 +85,7 @@ public class AddClassnameFragment extends Fragment {
             }
 
         }
-        resclass.close();
+        allClass.close();
         myDb.close();
 
 
@@ -119,7 +119,10 @@ public class AddClassnameFragment extends Fragment {
 
 
                     classnameList.add(classname);
-                    myDb.insertDataClass(name);
+
+
+
+                    myDb.insertClassname(name);
                     myDb.close();
                     classnameAdapter.notifyDataSetChanged();
                     newClassname.setText("");

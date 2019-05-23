@@ -61,5 +61,6 @@
     <string name="data_not_inserted">Data not inserted</string>
     <string name="please_enter_name">Please enter name</string>
     <string name="please_enter_classname">Please enter classname</string>
+    <string name="MONDAY">MONDAY</string>
 
 </resources>

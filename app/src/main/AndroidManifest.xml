@@ -27,8 +27,6 @@
         <activity
             android:name="com.djinons.schoolschedule.activitys.EditTimeTableActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.djinons.schoolschedule.activitys.AddClassNameActivity" />
-        <activity android:name="com.djinons.schoolschedule.activitys.ClassStartEndActivity" />
         <activity android:name="com.djinons.schoolschedule.activitys.HelpActivity" />
         <activity android:name="com.djinons.schoolschedule.activitys.AddNewScheduleActivity" />
         <activity android:name="com.djinons.schoolschedule.activitys.EditDeleteActivity"/>

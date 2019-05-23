@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
-import static java.lang.System.out;
 
 public class EditTimeTableActivity extends AppCompatActivity {
 
@@ -421,7 +420,7 @@ public class EditTimeTableActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_save, menu);
         return true;
     }
 
@@ -509,22 +508,17 @@ public class EditTimeTableActivity extends AppCompatActivity {
         thu7 = findViewById(R.id.thu_7);
 
 
-        boolean isInserted = myDb.insertData(
-                studentName.getText().toString(), mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
+        myDb.updateSchedule(
+                "Dunja", mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
                 mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
                 mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
                 mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
                 mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
                 mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
                 mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
-        if (isInserted == true) {
-            Toast.makeText(EditTimeTableActivity.this, R.string.data_inserted, Toast.LENGTH_LONG).show();
-            out.print(isInserted);
-            ReadSQL();
 
-        } else
-            Toast.makeText(EditTimeTableActivity.this, R.string.data_not_inserted, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(EditTimeTableActivity.this, R.string.data_inserted, Toast.LENGTH_LONG).show();
+        ReadSQL();
         myDb.close();
 
     }

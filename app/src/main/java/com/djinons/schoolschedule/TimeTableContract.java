@@ -14,11 +14,11 @@ public class TimeTableContract {
         public static final String DATABASE_NAME = "timetable.db";
         public static final String TABLE_NAME = "time_table_";
         public static final String NAME = "NAME";
-        public static final String COL_2 = "MONDAY1";
-        public static final String COL_3 = "TUESDAY1";
-        public static final String COL_4 = "WEDNESDAY1";
-        public static final String COL_5 = "THURSDAY1";
-        public static final String COL_6 = "FRIDAY1";
+        public static final String MONDAY_1 = "MONDAY1";
+        public static final String MONDAY_2 = "TUESDAY1";
+        public static final String MONDAY_3 = "WEDNESDAY1";
+        public static final String MONDAY_4 = "THURSDAY1";
+        public static final String MONDAY_5 = "FRIDAY1";
 
         public static final String COL_7 = "MONDAY2";
         public static final String COL_8 = "TUESDAY2";

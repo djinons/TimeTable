@@ -11,9 +11,9 @@ import com.djinons.schoolschedule.models.SchedulenameModel;
 
 import java.util.ArrayList;
 
-public class EditScheduleRecyclerViewAdapter  extends RecyclerView.Adapter<CardViewHolder>{
+public class EditScheduleRecyclerViewAdapter  extends RecyclerView.Adapter<StudentClassnameCardViewHolder>{
 
-    private CardViewHolder cardViewHolder;
+    private StudentClassnameCardViewHolder studentClassnameCardViewHolder;
     private ArrayList<SchedulenameModel> schedulenameList;
     private MainActivity mainActivity;
 
@@ -26,18 +26,18 @@ public class EditScheduleRecyclerViewAdapter  extends RecyclerView.Adapter<CardV
 
     @NonNull
     @Override
-    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public StudentClassnameCardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student_classname_list_item, viewGroup, false);
-        cardViewHolder = new CardViewHolder(view);
+        studentClassnameCardViewHolder = new StudentClassnameCardViewHolder(view);
 
-        return cardViewHolder;
+        return studentClassnameCardViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder cardViewHolder, int i) {
+    public void onBindViewHolder(@NonNull StudentClassnameCardViewHolder studentClassnameCardViewHolder, int i) {
 
-        cardViewHolder.nameTV.setText(schedulenameList.get(i).getSchedulename());
+        studentClassnameCardViewHolder.nameTV.setText(schedulenameList.get(i).getSchedulename());
 
     }
 

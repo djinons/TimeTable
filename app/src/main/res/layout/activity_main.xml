@@ -51,38 +51,38 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-        android:id="@+id/viewPagerTab"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="2dp"
-        android:clipToPadding="true"
-        android:visibility="visible"
-        app:stl_defaultTabTextHorizontalPadding="18dp"
-        app:stl_dividerColor="#00000000"
-        app:stl_dividerThickness="0dp"
-        app:stl_indicatorColor="@color/primary"
-        app:stl_indicatorCornerRadius="18dp"
-        app:stl_indicatorGravity="center"
-        app:stl_indicatorInterpolation="smart"
-        app:stl_indicatorThickness="36dp"
-        app:stl_underlineColor="#00000000"
-        app:stl_underlineThickness="0dp" />
+    <!--<com.ogaclejapan.smarttablayout.SmartTabLayout-->
+        <!--android:id="@+id/viewPagerTab"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:clipToPadding="true"-->
+        <!--android:visibility="visible"-->
+        <!--app:stl_defaultTabTextHorizontalPadding="18dp"-->
+        <!--app:stl_dividerColor="#00000000"-->
+        <!--app:stl_dividerThickness="0dp"-->
+        <!--app:stl_indicatorColor="@color/primary"-->
+        <!--app:stl_indicatorCornerRadius="18dp"-->
+        <!--app:stl_indicatorGravity="center"-->
+        <!--app:stl_indicatorInterpolation="smart"-->
+        <!--app:stl_indicatorThickness="36dp"-->
+        <!--app:stl_underlineColor="#00000000"-->
+        <!--app:stl_underlineThickness="0dp" />-->
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        android:visibility="visible">
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/vPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:paddingRight="8dp"-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:visibility="visible">-->
 
-    </android.support.v4.view.ViewPager>
+    <!--</android.support.v4.view.ViewPager>-->
 
     <FrameLayout
         android:id="@+id/fragment_container"

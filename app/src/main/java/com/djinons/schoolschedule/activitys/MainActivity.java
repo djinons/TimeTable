@@ -1,6 +1,7 @@
 package com.djinons.schoolschedule.activitys;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,28 +9,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.djinons.schoolschedule.DbHelper;
 import com.djinons.schoolschedule.R;
-import com.djinons.schoolschedule.dialogs.Close_dialog;
-import com.djinons.schoolschedule.dialogs.Info_dialog;
+import com.djinons.schoolschedule.WeekRecyclerViewAdapter;
 import com.djinons.schoolschedule.fragments.AddClassnameFragment;
 import com.djinons.schoolschedule.fragments.ClassStartEndFragment;
 import com.djinons.schoolschedule.fragments.EditDeleteScheduleFragment;
 import com.djinons.schoolschedule.fragments.FridayFragment;
+import com.djinons.schoolschedule.fragments.HomeFragment;
 import com.djinons.schoolschedule.fragments.MondayFragment;
 import com.djinons.schoolschedule.fragments.ThursdayFragment;
 import com.djinons.schoolschedule.fragments.TuesdayFragment;
@@ -53,7 +51,6 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,39 +59,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static java.lang.System.out;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Drawer drawer = null;
     public static String FRAGMENT_TAG = "";
-    ViewPager vPager;
-    DayViewPagerAdapter dayViewPagerAdapter;
     DbHelper myDb;
     ArrayAdapter<String> adapter;
-    SmartTabLayout viewPagerTab;
-    Spinner mon1, mon2, mon3, mon4, mon5, mon6, mon7;
-    Spinner tue1, tue2, tue3, tue4, tue5, tue6, tue7;
-    Spinner wed1, wed2, wed3, wed4, wed5, wed6, wed7;
-    Spinner thu1, thu2, thu3, thu4, thu5, thu6, thu7;
-    Spinner fri1, fri2, fri3, fri4, fri5, fri6, fri7;
     Spinner toolbarspinner;
-    TextView mon1t, mon2t, mon3t, mon4t, mon5t, mon6t, mon7t;
-    TextView tue1t, tue2t, tue3t, tue4t, tue5t, tue6t, tue7t;
-    TextView wed1t, wed2t, wed3t, wed4t, wed5t, wed6t, wed7t;
-    TextView thu1t, thu2t, thu3t, thu4t, thu5t, thu6t, thu7t;
-    TextView fri1t, fri2t, fri3t, fri4t, fri5t, fri6t, fri7t;
-    String Monday1, Monday2, Monday3, Monday4, Monday5, Monday6, Monday7;
-    String Tuesday1, Tuesday2, Tuesday3, Tuesday4, Tuesday5, Tuesday6, Tuesday7;
-    String Wednesday1, Wednesday2, Wednesday3, Wednesday4, Wednesday5, Wednesday6, Wednesday7;
-    String Thursday1, Thursday2, Thursday3, Thursday4, Thursday5, Thursday6, Thursday7;
-    String Friday1, Friday2, Friday3, Friday4, Friday5, Friday6, Friday7;
     String studentname;
+
+    private ArrayList<Integer> classNumberList;
+    private ArrayList<String> mondayClassnameList;
+    private ArrayList<String> tuesdayClassnameList;
+    private ArrayList<String> wednesdayClassnameList;
+    private ArrayList<String> thursdayClassnameList;
+    private ArrayList<String> fridayClassnameList;
+    private WeekRecyclerViewAdapter weekRecyclerViewAdapter;
+
     private boolean doubleBackToExitPressedOnce = false;
 
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
+
         @Override
         public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
             //  SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -120,164 +108,86 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     };
 
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
         studentname = toolbarspinner.getSelectedItem().toString();
 
-        vPager = findViewById(R.id.vPager);
-        dayViewPagerAdapter = new DayViewPagerAdapter(getSupportFragmentManager());
+        RecyclerView mainLandRecyclerView = findViewById(R.id.main_land_recycler_view);
 
-        if (vPager != null) {
+        if(mainLandRecyclerView == null){
 
-            vPager.setAdapter(dayViewPagerAdapter);
+            Fragment fragment;
+            clearBackStack();
+            fragment = HomeFragment.newInstance(getString(R.string.app_name));
+            FRAGMENT_TAG = "Home_fragment_tag";
+            switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
 
-            viewPagerTab = findViewById(R.id.viewPagerTab);
-            viewPagerTab.setViewPager(vPager);
-
-        } else if (vPager == null) {
-
-            Cursor res = myDb.getRow1(studentname);
-            //reading DB
-            if (res != null) {
-                while (res.moveToNext()) {
-
-                    Monday1 = (res.getString(2));
-                    Monday2 = (res.getString(7));
-                    Monday3 = (res.getString(12));
-                    Monday4 = (res.getString(17));
-                    Monday5 = (res.getString(22));
-                    Monday6 = (res.getString(27));
-                    Monday7 = (res.getString(32));
-
-                    Tuesday1 = (res.getString(3));
-                    Tuesday2 = (res.getString(8));
-                    Tuesday3 = (res.getString(13));
-                    Tuesday4 = (res.getString(18));
-                    Tuesday5 = (res.getString(23));
-                    Tuesday6 = (res.getString(28));
-                    Tuesday7 = (res.getString(33));
-
-                    Wednesday1 = (res.getString(4));
-                    Wednesday2 = (res.getString(9));
-                    Wednesday3 = (res.getString(14));
-                    Wednesday4 = (res.getString(19));
-                    Wednesday5 = (res.getString(24));
-                    Wednesday6 = (res.getString(29));
-                    Wednesday7 = (res.getString(34));
-
-                    Thursday1 = (res.getString(5));
-                    Thursday2 = (res.getString(10));
-                    Thursday3 = (res.getString(15));
-                    Thursday4 = (res.getString(20));
-                    Thursday5 = (res.getString(25));
-                    Thursday6 = (res.getString(30));
-                    Thursday7 = (res.getString(35));
-
-                    Friday1 = (res.getString(6));
-                    Friday2 = (res.getString(11));
-                    Friday3 = (res.getString(16));
-                    Friday4 = (res.getString(21));
-                    Friday5 = (res.getString(26));
-                    Friday6 = (res.getString(31));
-                    Friday7 = (res.getString(36));
-
-                }
-
-                //TextView reference
-                mon1t = findViewById(R.id.mon1TextView);
-                mon2t = findViewById(R.id.mon2TextView);
-                mon3t = findViewById(R.id.mon3TextView);
-                mon4t = findViewById(R.id.mon4TextView);
-                mon5t = findViewById(R.id.mon5TextView);
-                mon6t = findViewById(R.id.mon6TextView);
-                mon7t = findViewById(R.id.mon7TextView);
-
-                tue1t = findViewById(R.id.tue1TextView);
-                tue2t = findViewById(R.id.tue2TextView);
-                tue3t = findViewById(R.id.tue3TextView);
-                tue4t = findViewById(R.id.tue4TextView);
-                tue5t = findViewById(R.id.tue5TextView);
-                tue6t = findViewById(R.id.tue6TextView);
-                tue7t = findViewById(R.id.tue7TextView);
-
-                wed1t = findViewById(R.id.wed1TextView);
-                wed2t = findViewById(R.id.wed2TextView);
-                wed3t = findViewById(R.id.wed3TextView);
-                wed4t = findViewById(R.id.wed4TextView);
-                wed5t = findViewById(R.id.wed5TextView);
-                wed6t = findViewById(R.id.wed6TextView);
-                wed7t = findViewById(R.id.wed7TextView);
-
-                thu1t = findViewById(R.id.thu1TextView);
-                thu2t = findViewById(R.id.thu2TextView);
-                thu3t = findViewById(R.id.thu3TextView);
-                thu4t = findViewById(R.id.thu4TextView);
-                thu5t = findViewById(R.id.thu5TextView);
-                thu6t = findViewById(R.id.thu6TextView);
-                thu7t = findViewById(R.id.thu7TextView);
-
-                fri1t = findViewById(R.id.fri1TextView);
-                fri2t = findViewById(R.id.fri2TextView);
-                fri3t = findViewById(R.id.fri3TextView);
-                fri4t = findViewById(R.id.fri4TextView);
-                fri5t = findViewById(R.id.fri5TextView);
-                fri6t = findViewById(R.id.fri6TextView);
-                fri7t = findViewById(R.id.fri7TextView);
-
-                //setting values from DB
-                mon1t.setText(Monday1);
-                mon2t.setText(Monday2);
-                mon3t.setText(Monday3);
-                mon4t.setText(Monday4);
-                mon5t.setText(Monday5);
-                mon6t.setText(Monday6);
-                mon7t.setText(Monday7);
-
-                tue1t.setText(Tuesday1);
-                tue2t.setText(Tuesday2);
-                tue3t.setText(Tuesday3);
-                tue4t.setText(Tuesday4);
-                tue5t.setText(Tuesday5);
-                tue6t.setText(Tuesday6);
-                tue7t.setText(Tuesday7);
-
-                wed1t.setText(Wednesday1);
-                wed2t.setText(Wednesday2);
-                wed3t.setText(Wednesday3);
-                wed4t.setText(Wednesday4);
-                wed5t.setText(Wednesday5);
-                wed6t.setText(Wednesday6);
-                wed7t.setText(Wednesday7);
-
-                thu1t.setText(Thursday1);
-                thu2t.setText(Thursday2);
-                thu3t.setText(Thursday3);
-                thu4t.setText(Thursday4);
-                thu5t.setText(Thursday5);
-                thu6t.setText(Thursday6);
-                thu7t.setText(Thursday7);
-
-                fri1t.setText(Friday1);
-                fri2t.setText(Friday2);
-                fri3t.setText(Friday3);
-                fri4t.setText(Friday4);
-                fri5t.setText(Friday5);
-                fri6t.setText(Friday6);
-                fri7t.setText(Friday7);
-
-                myDb.close();
-
-            }
         }
 
+        if (mainLandRecyclerView != null) {
+
+
+            // DbHelper myDb;
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            mainLandRecyclerView.setLayoutManager(layoutManager);
+
+
+            classNumberList = new ArrayList<>();
+            mondayClassnameList = new ArrayList<>();
+            tuesdayClassnameList = new ArrayList<>();
+            wednesdayClassnameList = new ArrayList<>();
+            thursdayClassnameList = new ArrayList<>();
+            fridayClassnameList = new ArrayList<>();
+
+            myDb = new DbHelper(this);
+            myDb.getWritableDatabase();
+            Cursor dataForWeek = myDb.getDataForWeek("Dunja");
+
+            while (dataForWeek.moveToNext()) {
+
+                classNumberList.add(Integer.valueOf(dataForWeek.getString(0)));
+                mondayClassnameList.add(dataForWeek.getString(1));
+                tuesdayClassnameList.add(dataForWeek.getString(2));
+                wednesdayClassnameList.add(dataForWeek.getString(3));
+                thursdayClassnameList.add(dataForWeek.getString(4));
+                fridayClassnameList.add(dataForWeek.getString(5));
+            }
+            dataForWeek.close();
+            myDb.close();
+
+
+            weekRecyclerViewAdapter = new WeekRecyclerViewAdapter(classNumberList, mondayClassnameList, tuesdayClassnameList,
+                    wednesdayClassnameList, thursdayClassnameList, fridayClassnameList, this);
+            mainLandRecyclerView.setAdapter(weekRecyclerViewAdapter);
+
+            myDb.close();
+
+
+        }
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    private Fragment getVisibleFragment() {
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
+    }
+
+
 
 
     @Override
@@ -287,25 +197,39 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         myDb = new DbHelper(this);
         myDb.getWritableDatabase();
 
-        Cursor gotclassname = myDb.getAllDataClass();
-        Cursor gotschedule = myDb.getAllScheduleName();
 
-        if (gotclassname.getCount() < 2) {
 
-            Intent addClassIntent = new Intent(MainActivity.this, AddClassNameActivity.class);
-            MainActivity.this.startActivity(addClassIntent);
 
-        } else if (gotschedule.getCount() < 1) {
-            Intent addScheduleIntent = new Intent(MainActivity.this, AddNewScheduleActivity.class);
-            MainActivity.this.startActivity(addScheduleIntent);
+        Cursor allTableNames = myDb.getTableNames();
+
+
+
+
+        if (allTableNames.getCount() < 1) {
+
+            Fragment fragment;
+            clearBackStack();
+            fragment = AddClassnameFragment.newInstance("Add Classname");
+            FRAGMENT_TAG = "fragment_add_classname_tag";
+            switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+
         }
 
+//        myDb.CreateTimeTableForStudent("Dunja");
+//        myDb.CreateClassStartEndTable();
+//        myDb.CreateClassnameTable();
 
         setContentView(R.layout.activity_main);
 
-        myDb.CreateTimeTableForStudent("Dunja");
 
-        // invalidateOptionsMenu();
+        while (allTableNames.moveToNext()) {
+
+            System.out.println(myDb.getTableNames());
+
+
+        }
+
+
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -340,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 .withActivity(this)
                 .withCompactStyle(false)
                 .withHeaderBackground(R.drawable.header)
-             //   .withCompactStyle(true)
+                //   .withCompactStyle(true)
                 .withDividerBelowHeader(true)
                 .addProfiles(
                         profile,
@@ -427,10 +351,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                 //  .withChecked(sharedPreferences.getBoolean(Const.DEFAULT_THEME, false))
                                                 .withOnCheckedChangeListener(onCheckedChangeListener),//TODO comma separator
                                         new SecondaryDrawerItem()
-                                                    .withName("Language")
-                                                    .withIcon(R.drawable.ic_notifications_frequency_black)
-                                                    .withIdentifier(102)
-                                                    .withSelectable(false)
+                                                .withName("Language")
+                                                .withIcon(R.drawable.ic_notifications_frequency_black)
+                                                .withIdentifier(102)
+                                                .withSelectable(false)
                                 )
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -440,14 +364,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         if (drawerItem != null) {
                             Fragment fragment;
                             switch ((int) drawerItem.getIdentifier()) {
-//                                   case 1:
-//                                        clearBackStack();
-//                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
-//                                        FRAGMENT_TAG = getString(R.string.fragment_home_tag);
-//                                        vPager.setVisibility(View.VISIBLE);
-//                                        viewPagerTab.setVisibility(View.VISIBLE);
+                                   case 1:
+                                        clearBackStack();
+                                        fragment = HomeFragment.newInstance(getString(R.string.app_name));
+                                        FRAGMENT_TAG = "Home_fragment_tag";
 
-//                                        break;
+//                                        vPager.setVisibility(View.GONE);
+//                                        viewPagerTab.setVisibility(View.GONE);
+
+                                       switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
+
+
+                                       break;
 //                                    case 3:
 //                                        clearBackStack();
 //                                        Const.notifications = NotificationBackgroundService.getNotifications();
@@ -474,16 +402,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     clearBackStack();
                                     fragment = AddClassnameFragment.newInstance("Add Classname");
                                     FRAGMENT_TAG = "fragment_add_classname_tag";
-                                    vPager.setVisibility(View.GONE);
-                                    viewPagerTab.setVisibility(View.GONE);
+//                                    vPager.setVisibility(View.GONE);
+//                                    viewPagerTab.setVisibility(View.GONE);
                                     switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
                                     break;
                                 case 50:
                                     clearBackStack();
                                     fragment = ClassStartEndFragment.newInstance("Set Start/End Time");
                                     FRAGMENT_TAG = "fragment_set_start_end_time_tag";
-                                    vPager.setVisibility(View.GONE);
-                                    viewPagerTab.setVisibility(View.GONE);
+//                                    vPager.setVisibility(View.GONE);
+//                                    viewPagerTab.setVisibility(View.GONE);
                                     switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
                                     break;
 //                                    case 12:
@@ -495,8 +423,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     clearBackStack();
                                     fragment = EditDeleteScheduleFragment.newInstance("Edit/Delete Schedule");
                                     FRAGMENT_TAG = "fragment_edit_delete_schedule_tag";
-                                    vPager.setVisibility(View.GONE);
-                                    viewPagerTab.setVisibility(View.GONE);
+//                                    vPager.setVisibility(View.GONE);
+//                                    viewPagerTab.setVisibility(View.GONE);
                                     switchFragmentNoBackStackByTag(R.id.fragment_container, fragment, FRAGMENT_TAG);
                                     break;
 //                                    case 102:
@@ -506,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //
                                 default:
                                     clearBackStack();
-                                    fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+                                    //fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
                                     break;
                             }
 
@@ -592,16 +520,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             schedulenameModel.setId(schedulename.getInt(0));
             schedulenameModel.setSchedulename((schedulename.getString(1)));
             ScheduleNameArray.add(schedulenameModel);
-            out.println(schedulenameModel.getId());
-            out.println(schedulenameModel.getSchedulename());
+
         }
 
         Set<String> set = new HashSet<String>();
-        Cursor schedulename1 = myDb.getAllScheduleName();
+        Cursor schedulename1 = myDb.getTableNames();
 
         if (schedulename1.moveToFirst()) {
             do {
-                set.add(schedulename1.getString(1));
+
+                String sName = schedulename1.getString(0);
+
+                String[] split = sName.split("_");
+
+
+
+
+                set.add(split[2]);
+
+
+
+
             } while (schedulename1.moveToNext());
         }
         schedulename1.close();
@@ -625,25 +564,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public Fragment getVisibleFragment(){
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-
-
-
-//        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
-//        List<Fragment> fragments = fragmentManager.getFragments();
-//        if(fragments != null){
-//            for(Fragment fragment : fragments){
-//                if(fragment != null && fragment.isVisible())
-//                    return fragment;
-//            }
-//        }
-//        return null;
-
-        return currentFragment;
-    }
 
     public String getMyData() {
         return studentname;
@@ -657,15 +578,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        Cursor gotschedule = myDb.getAllScheduleName();
 
 
-
-
-
 //        if (myFragment != null && myFragment.isVisible()) {
 //            // add your code here
 //
-//            getMenuInflater().inflate(R.menu.menu_edit, menu);
+//            getMenuInflater().inflate(R.menu.menu_save, menu);
 //        }
-
 
 
 //
@@ -732,159 +649,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //    }
 
 
-    private void aboutDialog() {
-        Info_dialog info_dialog = new Info_dialog();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.addToBackStack(null);
-        info_dialog.show(ft, "info_dialog");
-    }
 
-    public void SaveTimeTable() {
-
-        Cursor res = myDb.getAllData();
-        if (res.getCount() < 1) {
-
-        }
-        res.close();
-
-        mon1 = findViewById(R.id.mon_1);
-        tue1 = findViewById(R.id.tue_1);
-        wed1 = findViewById(R.id.wed_1);
-        fri1 = findViewById(R.id.fri_1);
-        thu1 = findViewById(R.id.thu_1);
-        mon2 = findViewById(R.id.mon_2);
-        tue2 = findViewById(R.id.tue_2);
-        wed2 = findViewById(R.id.wed_2);
-        mon3 = findViewById(R.id.mon_3);
-        tue3 = findViewById(R.id.tue_3);
-        wed3 = findViewById(R.id.wed_3);
-        mon4 = findViewById(R.id.mon_4);
-        tue4 = findViewById(R.id.tue_4);
-        wed4 = findViewById(R.id.wed_4);
-        mon5 = findViewById(R.id.mon_5);
-        tue5 = findViewById(R.id.tue_5);
-        wed5 = findViewById(R.id.wed_5);
-        mon6 = findViewById(R.id.mon_6);
-        tue6 = findViewById(R.id.tue_6);
-        wed6 = findViewById(R.id.wed_6);
-        fri2 = findViewById(R.id.fri_2);
-        thu2 = findViewById(R.id.thu_2);
-        fri3 = findViewById(R.id.fri_3);
-        thu3 = findViewById(R.id.thu_3);
-        fri4 = findViewById(R.id.fri_4);
-        thu4 = findViewById(R.id.thu_4);
-        fri5 = findViewById(R.id.fri_5);
-        thu5 = findViewById(R.id.thu_5);
-        fri6 = findViewById(R.id.fri_6);
-        thu6 = findViewById(R.id.thu_6);
-        mon7 = findViewById(R.id.mon_7);
-        tue7 = findViewById(R.id.tue_7);
-        wed7 = findViewById(R.id.wed_7);
-        fri7 = findViewById(R.id.fri_7);
-        thu7 = findViewById(R.id.thu_7);
-
-/**
- boolean isInserted = myDb.insertData(
- mon1.getSelectedItem().toString(), tue1.getSelectedItem().toString(), wed1.getSelectedItem().toString(), thu1.getSelectedItem().toString(), fri1.getSelectedItem().toString(),
- mon2.getSelectedItem().toString(), tue2.getSelectedItem().toString(), wed2.getSelectedItem().toString(), thu2.getSelectedItem().toString(), fri2.getSelectedItem().toString(),
- mon3.getSelectedItem().toString(), tue3.getSelectedItem().toString(), wed3.getSelectedItem().toString(), thu3.getSelectedItem().toString(), fri3.getSelectedItem().toString(),
- mon4.getSelectedItem().toString(), tue4.getSelectedItem().toString(), wed4.getSelectedItem().toString(), thu4.getSelectedItem().toString(), fri4.getSelectedItem().toString(),
- mon5.getSelectedItem().toString(), tue5.getSelectedItem().toString(), wed5.getSelectedItem().toString(), thu5.getSelectedItem().toString(), fri5.getSelectedItem().toString(),
- mon6.getSelectedItem().toString(), tue6.getSelectedItem().toString(), wed6.getSelectedItem().toString(), thu6.getSelectedItem().toString(), fri6.getSelectedItem().toString(),
- mon7.getSelectedItem().toString(), tue7.getSelectedItem().toString(), wed7.getSelectedItem().toString(), thu7.getSelectedItem().toString(), fri7.getSelectedItem().toString());
-
- if (isInserted == true) {
- Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
-
- ReadSQL();
-
- } else
- Toast.makeText(MainActivity.this, "Data is not Inserted", Toast.LENGTH_SHORT).show();
-
- myDb.close();
- setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
- */
-    }
-
-    public void DeleteBase() {
-        myDb.deleteData(0);
-    }
-
-    public void SaveTable(View view) {
-        DeleteBase();
-        SaveTimeTable();
-        recreate();
-    }
-
-    public void ViewTimeTable(View view) {
-
-        //read from SQLite
-        Cursor res = myDb.getAllData();
-
-        if (res != null) {
-            while (res.moveToNext()) {
-                Monday1 = (res.getString(1));
-                Monday2 = (res.getString(6));
-                Monday3 = (res.getString(11));
-                Monday4 = (res.getString(16));
-                Monday5 = (res.getString(21));
-                Monday6 = (res.getString(26));
-
-                Tuesday1 = (res.getString(2));
-                Tuesday2 = (res.getString(7));
-                Tuesday3 = (res.getString(12));
-                Tuesday4 = (res.getString(17));
-                Tuesday5 = (res.getString(22));
-                Tuesday6 = (res.getString(27));
-
-                Wednesday1 = (res.getString(3));
-                Wednesday2 = (res.getString(8));
-                Wednesday3 = (res.getString(13));
-                Wednesday4 = (res.getString(18));
-                Wednesday5 = (res.getString(23));
-                Wednesday6 = (res.getString(28));
-
-                Thursday1 = (res.getString(4));
-                Thursday2 = (res.getString(9));
-                Thursday3 = (res.getString(14));
-                Thursday4 = (res.getString(19));
-                Thursday5 = (res.getString(24));
-                Thursday6 = (res.getString(29));
-
-                Friday1 = (res.getString(5));
-                Friday2 = (res.getString(10));
-                Friday3 = (res.getString(15));
-                Friday4 = (res.getString(20));
-                Friday5 = (res.getString(25));
-                Friday6 = (res.getString(30));
-
-            }
-            res.close();
-        }
-    }
-
-    public void showMessage(String title, String Message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
-
-    public void ReadSQL() {
-        Cursor res = myDb.getAllData();
-
-        if (res.getCount() == 0) {
-            showMessage("Error", "Nothing Found");
-            res.close();
-            return;
-        }
-
-    }
 
 
     @Override
     public void onBackPressed() {
+
+
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else {
@@ -902,7 +673,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 clearBackStack();
 
-
             } else {
                 // Close application
                 if (doubleBackToExitPressedOnce) {
@@ -919,7 +689,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
                 if (drawer.getCurrentSelection() != 1) {
                     drawer.setSelection(1, true);
-                    // getSupportFragmentManager().getBackStackEntryAt(0);
+//                     getSupportFragmentManager().getBackStackEntryAt(0);
+
                 } else {
                     this.doubleBackToExitPressedOnce = true;
 
@@ -943,14 +714,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    public void onShowQuitDialog() {
-        Close_dialog close_dialog = new Close_dialog();
-        FragmentTransaction frt = getSupportFragmentManager().beginTransaction();
-        frt.addToBackStack(null);
-        close_dialog.show(frt, "close_dialog");
-    }
-
-
 
     public void clearBackStack() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -966,7 +729,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
-        out.println("////////////////////////////////////"+getVisibleFragment());
     }
 
     public class DayViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -982,15 +744,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         public DayViewPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
+
+
             saveState();
-
-
         }
 
 
         @Override
         public Fragment getItem(int position) {
-
 
             switch (position) {
                 case 0:
@@ -1005,10 +766,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     return new FridayFragment();
                 default:
                     return null;
-
             }
-
-
         }
 
         @Override
@@ -1021,9 +779,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
-
     }
+
 
 }
 

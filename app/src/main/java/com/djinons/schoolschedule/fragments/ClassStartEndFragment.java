@@ -9,14 +9,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.djinons.schoolschedule.DbHelper;
 import com.djinons.schoolschedule.R;
 import com.djinons.schoolschedule.activitys.MainActivity;
+import com.github.clans.fab.FloatingActionButton;
 
 
 public class ClassStartEndFragment extends Fragment {
@@ -42,6 +47,8 @@ public class ClassStartEndFragment extends Fragment {
     TextView mon5startPM, mon5endPM;
     TextView mon6startPM, mon6endPM;
     TextView mon7startPM, mon7endPM;
+
+    FloatingActionButton fab;
 
     String Mon1startAM, Mon1endAM, Mon1startPM, Mon1endPM, Mon2startAM, Mon2endAM,
             Mon2startPM, Mon2endPM, Mon3startAM, Mon3endAM, Mon3startPM, Mon3endPM,
@@ -86,6 +93,32 @@ public class ClassStartEndFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_save, menu);
+        final MenuItem item = menu.findItem(R.id.action_save);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                deleteDataStartEnd();
+                SaveStartEndTime();
+                SaveStartEndTimeNew();
+
+
+getActivity().onBackPressed();
+
+
+                return true;
+            }
+        });
+
+
+    }
+
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -94,15 +127,13 @@ public class ClassStartEndFragment extends Fragment {
         }
 
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        MainActivity activity = (MainActivity) getActivity();
-
 
 
         View view = inflater.inflate(R.layout.fragment_class_start_end, container, false);
@@ -147,19 +178,12 @@ public class ClassStartEndFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        myDb = new DbHelper(context);
-//        myDb.getWritableDatabase();
-//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
+        setHasOptionsMenu(true);
         Cursor resStartEnd = myDb.getRow1StartEnd();
 
         if (resStartEnd != null) {
@@ -621,7 +645,10 @@ public class ClassStartEndFragment extends Fragment {
         });
 
 
+
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -630,16 +657,7 @@ public class ClassStartEndFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+
 
     @Override
     public void onDetach() {
@@ -649,6 +667,45 @@ public class ClassStartEndFragment extends Fragment {
 
     public void deleteDataStartEnd() {
         myDb.deleteDataStartEnd(1);
+    }
+
+
+    public void SaveStartEndTimeNew(){
+
+        myDb.UpdateClassStartEndTable(1,mon1startAM.getText().toString(),mon1endAM.getText().toString(),mon1startPM.getText().toString(),mon1endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(2,mon2startAM.getText().toString(),mon2endAM.getText().toString(),mon2startPM.getText().toString(),mon2endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(3,mon3startAM.getText().toString(),mon3endAM.getText().toString(),mon3startPM.getText().toString(),mon3endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(4,mon4startAM.getText().toString(),mon4endAM.getText().toString(),mon4startPM.getText().toString(),mon4endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(5,mon5startAM.getText().toString(),mon5endAM.getText().toString(),mon5startPM.getText().toString(),mon5endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(6,mon6startAM.getText().toString(),mon6endAM.getText().toString(),mon6startPM.getText().toString(),mon6endPM.getText().toString());
+        myDb.UpdateClassStartEndTable(7,mon7startAM.getText().toString(),mon7endAM.getText().toString(),mon7startPM.getText().toString(),mon7endPM.getText().toString());
+
+    }
+
+    public void SaveStartEndTime() {
+
+        Cursor resStartEnd = myDb.getRow1StartEnd();
+        if (resStartEnd.getCount() < 1) {
+
+
+        }
+        resStartEnd.close();
+
+        boolean isInserted = myDb.insertDataStartEnd(
+                mon1startAM.getText().toString(), mon1endAM.getText().toString(), mon2startAM.getText().toString(), mon2endAM.getText().toString(), mon3startAM.getText().toString(), mon3endAM.getText().toString(),
+                mon4startAM.getText().toString(), mon4endAM.getText().toString(), mon5startAM.getText().toString(), mon5endAM.getText().toString(), mon6startAM.getText().toString(), mon6endAM.getText().toString(),
+                mon7startAM.getText().toString(), mon7endAM.getText().toString(), mon1startPM.getText().toString(), mon1endPM.getText().toString(), mon2startPM.getText().toString(), mon2endPM.getText().toString(),
+                mon3startPM.getText().toString(), mon3endPM.getText().toString(), mon4startPM.getText().toString(), mon4endPM.getText().toString(), mon5startPM.getText().toString(), mon5endPM.getText().toString(),
+                mon6startPM.getText().toString(), mon6endPM.getText().toString(), mon7startPM.getText().toString(), mon7endPM.getText().toString());
+
+        if (isInserted == true) {
+            Toast.makeText(getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+            ReadSQL();
+
+        } else
+            Toast.makeText(getContext(), "Data is not Inserted", Toast.LENGTH_SHORT).show();
+
+      //  myDb.close();
     }
 
 
@@ -720,18 +777,10 @@ public class ClassStartEndFragment extends Fragment {
 //    }
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

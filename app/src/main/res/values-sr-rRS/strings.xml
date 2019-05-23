@@ -60,7 +60,7 @@
     <string name="data_not_inserted">Podaci nisu sačuvani</string>
     <string name="please_enter_name">Molim unesite ime</string>
     <string name="please_enter_classname">Unesite ime predmeta</string>
-
+    <string name="MONDAY">MONDAY</string>
 
 
 </resources>
